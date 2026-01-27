@@ -24,6 +24,7 @@ repository               : "academicpages/academicpages.github.io"
 author:
   # Biographic information
   name             : "Tommaso Landi"
+  avatar           : ""
   pronouns         : # example: "she/her"  
   bio              : "Master's Student in Economics"
   location         : "Tuscany, Italy"
