@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Landi Tommaso"
+title: "Description"
 author_profile: true
 redirect_from: 
   - /about/
