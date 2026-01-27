@@ -10,7 +10,8 @@
 main:
     
   - title: "CV"
-    url: /CV_Landi_Tommaso.pdf
+    url: /CV_Landi_Tommaso.pdf.pdf
+    
     
   # - title: "CV"
   #   url: /cv-json/
