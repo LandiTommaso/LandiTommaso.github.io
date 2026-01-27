@@ -26,7 +26,7 @@ author:
   avatar           : "profile.png"
   name             : "Tommaso Landi"
   pronouns         : # example: "she/her"  
-  bio              : "Master's student in Economics"
+  bio              : "Master's Student in Economics"
   location         : "Tuscany,Italy"
   employer         : "University of Pisa"
   uri              : # URL
@@ -48,12 +48,8 @@ author:
 
 
   # Repositories and software development
-  bitbucket        : # Username - Update with your username on the site
-  codepen          : # Username
-  dribbble         : # Username
-  github           : "LandiTommaso"
-  kaggle           : # Username  
-  stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")    
+ github           : "LandiTommaso"
+  
 
   # Social media
    # Replace this with you Bluesky username
