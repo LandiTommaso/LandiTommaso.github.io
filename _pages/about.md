@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Hi there, I'm Tommaso!"
+title: "Landi Tommaso!"
 author_profile: true
 redirect_from: 
   - /about/
