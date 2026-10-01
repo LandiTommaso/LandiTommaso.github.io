@@ -6,7 +6,7 @@ redirect_from:
   - /about/
   - /about.html
 ---
-I am a graduate student in Economics at the [University of Pisa] and the [Sant'Anna School of Advanced Studies](https://www.santannapisa.it), enrolled in the joint Master's Degree in Economics (General Economics track, 2025–2027).
+I am a graduate student in Economics at the University of Pisa and the [Sant'Anna School of Advanced Studies](https://www.santannapisa.it), enrolled in the joint Master's Degree in Economics (General Economics track, 2025–2027).
 
 My training focuses on econometrics and data analysis, and I am interested in applying quantitative methods to questions in finance and policy evaluation.
 
