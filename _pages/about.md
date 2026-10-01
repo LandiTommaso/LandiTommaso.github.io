@@ -27,4 +27,4 @@ Skills
 * **Programming:** R, LaTeX
 * **Languages:** Italian (native), English (proficient), Spanish (basic)
 
-More details are in my [CV](/cv/) ([PDF](/files/Landi_Tommaso.pdf)). Feel free to reach out by [email](mailto:tomsciu@gmail.com) or on [LinkedIn](https://www.linkedin.com/in/tommaso-l-979597243).
+More details are in my CV.
