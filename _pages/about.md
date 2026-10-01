@@ -18,8 +18,8 @@ Fields of interests
 
 Education
 ------
-M.Sc. in Economics**, Sant'Anna School of Advanced Studies & University of Pisa, 2025–2027 (expected)
-B.A. in Political Science, Economics track**, University of Pisa, 2021–2024
+* M.Sc. in Economics**, Sant'Anna School of Advanced Studies & University of Pisa, 2025–2027 (expected)
+* B.A. in Political Science, Economics track**, University of Pisa, 2021–2024
   * Thesis: *Emission Permits and the EU ETS* (supervisor: Prof. Pench)
 
 Skills
