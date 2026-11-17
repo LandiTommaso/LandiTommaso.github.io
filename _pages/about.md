@@ -22,9 +22,16 @@ Education
 * B.A. in Political Science, Economics track, University of Pisa, 2021–2024
   * Thesis: *Emission Permits and the EU ETS* (supervisor: Prof. Pench)
 
+Experience
+------
+* **Intern**, INPA S.p.A., Vinci (Italy), Mar–Apr 2024
+  * Market research on the pickles sector: market niches and consumer demand trends
+  * Process optimization: goods-unloading logistics and product analysis using bills of materials
+
 Skills
 ------
-* **Programming:** R, LaTeX
+* **Data & econometrics:** R, gretl
+* **Tools:** LaTeX, Git/GitHub
 * **Languages:** Italian (native), English (proficient), Spanish (basic)
 
 More details are in my CV.
