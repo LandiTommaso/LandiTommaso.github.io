@@ -20,6 +20,8 @@
   h1 { font-size:2.3rem; font-weight:normal; margin:0; letter-spacing:.01em; }
   .tagline { color:var(--muted); margin:4px 0 14px; font-style:italic; }
   .links a { margin-right:20px; }
+  html { scroll-behavior:smooth; }
+  @media (prefers-reduced-motion:reduce){ html { scroll-behavior:auto; } }
   a { color:var(--accent); text-decoration:none; }
   a:hover { text-decoration:underline; }
   h2 { font-size:1rem; font-weight:normal; font-variant:small-caps; letter-spacing:.08em; color:var(--accent);
@@ -50,6 +52,7 @@
   <h1>Tommaso Landi</h1>
   <p class="tagline">Graduate Student in Economics · Sant'Anna School of Advanced Studies &amp; University of Pisa</p>
   <p class="links">
+    <a href="#research">Research</a>
     <a href="mailto:tomsciu@gmail.com">Email</a>
     <a href="files/Landi_Tommaso.pdf?v=2026-11-17b">CV</a>
     <a href="https://www.linkedin.com/in/tommaso-l-979597243">LinkedIn</a>
@@ -60,25 +63,6 @@
   <a href="https://www.santannapisa.it">Sant'Anna School of Advanced Studies</a> (General Economics track, 2025–2027).
   My training focuses on econometrics and data analysis, with a particular interest in macroeconomics
   and time series.</p>
-
-  <h2>Research</h2>
-  <ul>
-    <li class="paper">
-      <a href="files/Landi_WP_budget_amendments.pdf"><strong>Where the Votes Are: Electoral Strength and Local Spending Requests in Italian Budget Laws, 2023–2027</strong></a><br>
-      <span class="sub">Working paper, November 2026</span>
-      <a class="thumb" href="files/Landi_WP_budget_amendments.pdf"><img src="files/img/wp_map.png" alt="Maps of Italian provinces: local spending requests per 100,000 residents and approved local requests, 2023–2027 budgets" width="693" height="451" loading="lazy"></a>
-      <p class="sub">Every amendment to the five budget laws of the current legislature, in both chambers: 24,977 proposals with signatory, party, admissibility ruling and outcome. Parties ask for local money where they got more votes in 2022, mostly in opposition; what gets approved depends on whether the signatory sits in the majority.</p>
-      <details>
-        <summary>Abstract</summary>
-        <p class="sub">I assemble every amendment tabled in the budget committees of both chambers of the Italian Parliament to the five budget laws of the XIX legislature (2023–2027) and match local spending requests to party vote shares in the 2022 general election. Ten extra points of vote share raise the probability that a party tables a local request for a province by 12.1 percentage points (mean 13.8); pooling five budgets, the relationship survives within region (7.8 points), although it vanishes in the 2027 budget alone. The pattern is driven by opposition parties, while the main governing party targets provinces where it is relatively weaker. A majority proposal is 8.9 points more likely to be approved than an opposition one (base rate 2.9%).</p>
-      </details>
-      <p class="paperlinks">
-        <a href="files/Landi_WP_budget_amendments.pdf">PDF</a>
-        <a href="https://claude.ai/artifact/PAuWEiKeqcTfEX1DMy16PH">Interactive explorer, 2023–2027</a>
-        <a href="https://claude.ai/artifact/D5WQFUaW1R2Z67CGSseZGe">2027 budget in detail</a>
-      </p>
-    </li>
-  </ul>
 
   <h2>Interests</h2>
   <p>Macroeconomics · Time series</p>
@@ -113,6 +97,25 @@
     <tr><td>Software</td><td>MS Office (Word, PowerPoint, Excel)</td></tr>
     <tr><td>Languages</td><td>Italian (native) · English (C1) · Spanish (basic)</td></tr>
   </table>
+
+  <h2 id="research">Research</h2>
+  <ul>
+    <li class="paper">
+      <a href="files/Landi_WP_budget_amendments.pdf"><strong>Where the Votes Are: Electoral Strength and Local Spending Requests in Italian Budget Laws, 2023–2027</strong></a><br>
+      <span class="sub">Working paper, November 2026</span>
+      <a class="thumb" href="files/Landi_WP_budget_amendments.pdf"><img src="files/img/wp_map.png" alt="Maps of Italian provinces: local spending requests per 100,000 residents and approved local requests, 2023–2027 budgets" width="693" height="451" loading="lazy"></a>
+      <p class="sub">Every amendment to the five budget laws of the current legislature, in both chambers: 24,977 proposals with signatory, party, admissibility ruling and outcome. Parties ask for local money where they got more votes in 2022, mostly in opposition; what gets approved depends on whether the signatory sits in the majority.</p>
+      <details>
+        <summary>Abstract</summary>
+        <p class="sub">I assemble every amendment tabled in the budget committees of both chambers of the Italian Parliament to the five budget laws of the XIX legislature (2023–2027) and match local spending requests to party vote shares in the 2022 general election. Ten extra points of vote share raise the probability that a party tables a local request for a province by 12.1 percentage points (mean 13.8); pooling five budgets, the relationship survives within region (7.8 points), although it vanishes in the 2027 budget alone. The pattern is driven by opposition parties, while the main governing party targets provinces where it is relatively weaker. A majority proposal is 8.9 points more likely to be approved than an opposition one (base rate 2.9%).</p>
+      </details>
+      <p class="paperlinks">
+        <a href="files/Landi_WP_budget_amendments.pdf">PDF</a>
+        <a href="https://claude.ai/artifact/PAuWEiKeqcTfEX1DMy16PH">Interactive explorer, 2023–2027</a>
+        <a href="https://claude.ai/artifact/D5WQFUaW1R2Z67CGSseZGe">2027 budget in detail</a>
+      </p>
+    </li>
+  </ul>
 
   <footer>© 2026 Tommaso Landi</footer>
 </main>
