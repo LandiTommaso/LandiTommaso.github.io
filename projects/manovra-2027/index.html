@@ -507,7 +507,7 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
     <h2>Fonti</h2>
     <ul>
       <li><b>Testi e firmatari:</b> Camera dei deputati, V Commissione Bilancio, fascicolo «Proposte emendative presentate» al ddl di bilancio 2027 (C. 3174-bis), 23 novembre 2026. Ogni riga ha il link alla scheda ufficiale.</li>
-      <li><b>Esiti di inammissibilità:</b> elenco ufficiale della Camera per la seduta del 23 novembre 2026.</li>
+      <li><b>Esiti di inammissibilità:</b> Bollettino della V Commissione del 23 novembre 2026 (pronuncia) e del 24 novembre 2026 (riesame: 98 proposte riammesse). Dove l’elenco sul sito della Camera diverge dal Bollettino, vale il Bollettino.</li>
       <li><b>Gruppo ed elezione dei deputati:</b> open data della Camera, <a href="https://dati.camera.it/" target="_blank" rel="noopener">dati.camera.it</a> (gruppo in carica al 23 novembre 2026).</li>
       <li><b>Voti 2022:</b> Ministero dell’Interno, Eligendo open data, elezioni della Camera del 25 settembre 2022, voti di lista per comune sommati per provincia.</li>
       <li><b>Popolazione:</b> ISTAT, residenti al 1° gennaio 2025, <a href="https://demo.istat.it/app/?i=POS&amp;l=it" target="_blank" rel="noopener">demo.istat.it</a>.</li>
@@ -515,7 +515,7 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
     </ul>
     <h2>Come sono stati classificati</h2>
     <dl>
-      <dt>Esito</dt><dd>Dall’elenco ufficiale: inammissibile per compensazione (copertura mancante o inadatta) o per estraneità di materia. «In parte» vuol dire solo alcuni commi.</dd>
+      <dt>Esito</dt><dd>Dalle pronunce della Commissione, aggiornate al riesame del 24 novembre: inammissibile per compensazione (copertura mancante o inadatta) o per estraneità di materia. «In parte» vuol dire solo alcuni commi.</dd>
       <dt>Costo annuo</dt><dd>La cifra scritta dal proponente per un anno; sotto c’è l’anno. Se gli anni hanno cifre diverse, l’anno più caro. Se l’emendamento cambia una cifra, conta la differenza.</dd>
       <dt>Costo 2027–29</dt><dd>Somma dei tre anni. Non è una stima d’impatto: per le misure fiscali può essere un gettito.</dd>
       <dt>Somme</dt><dd>Non sommare tutto: gli emendamenti identici (* nel fascicolo) ripetono la stessa proposta. Nel CSV la colonna «Da contare nelle somme» tiene solo la prima versione di ogni testo.</dd>
@@ -676,6 +676,7 @@ function detHTML(r){
   return `<tr class="det"><td colspan="8"><div class="grid"><dl>
    <dt>Numero</dt><dd>${esc((r.id_||'')+r.i)} ${r.id_?'<span class="meta">(identico ad altri)</span>':''}</dd>
    <dt>Esito</dt><dd>${r.s==='Ammissibile'?(r.pz?esc('Ammissibile, '+r.m):'Ammissibile'):esc('Inammissibile per '+r.m)}</dd>
+   ${r.rx?'<dt>'+L('Riesame')+'</dt><dd>'+L(r.rx==='R'?'Riesame del 24 novembre 2026: accolto sulla copertura, resta inammissibile per estraneità di materia':'Riammesso dopo il riesame del 24 novembre 2026')+'</dd>':''}${r.ns?'<dt>'+L('Nota')+'</dt><dd>'+L('Inammissibile sul sito della Camera, ma assente dagli elenchi del Bollettino del 23 novembre 2026')+'</dd>':''}
    <dt>Fonte</dt><dd><a href="${CAM+encodeURIComponent(r.i)+'.&position=20261123'}" target="_blank" rel="noopener">Scheda ufficiale sul sito della Camera ↗</a></dd>
    <dt>Firmatari</dt><dd>${firm}</dd>
    <dt>Eletto in</dt><dd>${esc(r.cf||'—')}${r.u?' · uninominale '+esc(r.u):''}</dd>

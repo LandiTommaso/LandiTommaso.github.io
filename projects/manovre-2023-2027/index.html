@@ -691,6 +691,7 @@ function detHTML(r){
    <dt>Numero</dt><dd>${esc((r.id_||'')+r.i)} ${r.id_?'<span class="meta">(identico ad altri)</span>':''}</dd>
    <dt>Manovra</dt><dd>${r.y} · ${esc(r.ra)} · ${r.le===2?'seconda':'prima'} lettura</dd>
    <dt>Esito</dt><dd>${r.s==='Ammissibile'?(r.o==='A'?'<b>Approvato</b>':esc(OLAB[r.o]))+(r.pz?' · '+esc(r.m):''):esc(r.s==='Altro motivo'?'Inammissibile ('+r.m+')':'Inammissibile per '+r.m)}</dd>
+   ${r.rx?'<dt>'+L('Riesame')+'</dt><dd>'+L(r.rx==='R'?'Riesame del 24 novembre 2026: accolto sulla copertura, resta inammissibile per estraneità di materia':'Riammesso dopo il riesame del 24 novembre 2026')+'</dd>':''}${r.ns?'<dt>'+L('Nota')+'</dt><dd>'+L('Inammissibile sul sito della Camera, ma assente dagli elenchi del Bollettino del 23 novembre 2026')+'</dd>':''}
    <dt>Fonte</dt><dd>${LINK(r)?'<a href="'+esc(LINK(r))+'" target="_blank" rel="noopener">Scheda ufficiale sul sito '+(r.ra==='Senato'?'del Senato':'della Camera')+' ↗</a>':'—'}</dd>
    <dt>Firmatari</dt><dd>${firm}</dd>
    <dt>Eletto in</dt><dd>${esc(r.cf||r.ce||'—')}${r.u?' · uninominale '+esc(r.u):''}</dd>
