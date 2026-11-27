@@ -182,6 +182,10 @@ a.tab{text-decoration:none}.tab.tabout{margin-left:auto;font-weight:500;color:va
 .swb{display:grid;grid-template-columns:150px minmax(0,1fr) 150px;gap:6px 10px;align-items:center;font-size:13.5px;margin-top:8px}
 .swb .tr{height:16px;background:var(--surface-2);border-radius:2px;overflow:hidden}.swb .tr i{display:block;height:100%;background:var(--r3)}
 .vnote{margin-top:14px}
+.vsortbar{display:flex;gap:8px;align-items:center;margin:10px 0 8px;font-size:13.5px}
+.vbar{display:inline-block;width:56px;height:7px;background:var(--surface-2);border-radius:4px;vertical-align:middle;margin-left:6px;overflow:hidden}.vbar i{display:block;height:100%;border-radius:4px;margin:0!important;width:0}
+.vleg{font-size:12.5px;margin-top:6px}
+.vsteps{margin:14px 0 4px;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);font-size:14px;line-height:1.55}.vsteps h4{margin:0 0 6px;font-size:14.5px}.vsteps ol{margin:0;padding-left:20px}.vsteps li{margin:3px 0}.vsteps p{margin:8px 0 0}
 @media (max-width:760px){.vgrid{grid-template-columns:minmax(0,1fr)}.swb{grid-template-columns:110px minmax(0,1fr);}.swb .sv{grid-column:2}}
 .paper{max-width:860px}
 .paper .kicker{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
@@ -423,7 +427,7 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
       <div class="f"><label for="mg">Gruppo</label><select id="mg"><option value="">Tutti</option></select></div>
       <div class="f"><label for="mdep">Parlamentare (primo firmatario)</label><input id="mdep" type="search" placeholder="Scrivi o scorri l’elenco" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list"></div>
       <div class="f"><label class="chk"><input id="mone" type="checkbox"> Solo firma unica</label></div>
-      <div class="f"><label for="mpo">Portata</label><select id="mpo"><option value="">Tutti gli emendamenti con luoghi</option><option value="Locale">Solo per un territorio</option><option value="Più territori">Solo su più territori</option></select></div><div class="f"><label for="mes">Esito</label><select id="mes"><option value="">Tutti</option><option value="AP">Approvati</option><option value="A">Ammissibili</option><option value="I">Inammissibili (tutti)</option><option value="E">Inammissibili per estraneità</option></select></div>
+      <div class="f"><label for="mpo">Portata</label><select id="mpo"><option value="">Tutti gli emendamenti con luoghi</option><option value="1">Solo per una provincia</option><option value="m">Solo per più province</option></select></div><div class="f"><label for="mes">Esito</label><select id="mes"><option value="">Tutti</option><option value="AP">Approvati</option><option value="A">Ammissibili</option><option value="I">Inammissibili (tutti)</option><option value="E">Inammissibili per estraneità</option></select></div>
       <button class="btn" type="button" id="mreset">Azzera mappa</button>
       <span class="mapdl"><button class="btn" type="button" id="csvmp">Scarica CSV province</button><button class="btn" type="button" id="csvmr">Scarica CSV regioni</button></span>
     </div>
@@ -447,14 +451,17 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
     <p class="sub">Ogni punto è una provincia. In orizzontale la percentuale presa dal partito alle politiche del 2022 (Camera, voto di lista); in verticale gli euro per abitante che i suoi parlamentari (Camera e Senato) chiedono per quella provincia con gli emendamenti alle manovre del periodo scelto.</p>
     <div class="pchips" role="group" aria-label="Partito"><span class="seglab">Partito</span><span id="vchips"></span></div>
     <label class="vchk"><input type="checkbox" id="vamm"> Solo emendamenti ammissibili</label>
-    <p class="vsum" id="vsum" aria-live="polite"></p>
+    <p class="vsum notr" id="vsum" aria-live="polite"></p>
     <div class="vgrid">
       <div class="vchart"><svg id="vsvg" viewBox="0 0 640 420" role="img" aria-label="Grafico a dispersione: voti 2022 e euro chiesti per abitante"></svg><div class="maptip" id="vtip" hidden></div></div>
       <div class="vside" id="vside"></div>
     </div>
     <h3 class="vh3">Tutti i partiti a confronto</h3>
-    <p class="sub">Per ogni partito ordino le province in base ai voti che ha preso nel 2022 e prendo due gruppi: il terzo di province dove è più forte e il terzo dove è più debole. Per ciascun gruppo la tabella riporta in quante province il partito ha chiesto almeno un finanziamento e quanti euro per abitante ha chiesto. Se un partito chiede di più nelle sue roccaforti, i valori sotto «Dove il partito è più forte» sono più alti di quelli sotto «Dove il partito è più debole». La colonna «Legame voti–soldi» riassume il confronto su tutte le province con una correlazione di rango (Spearman): positiva vuol dire più voti, più soldi chiesti; vicina a zero, nessun legame. Clicca un partito per vederlo nel grafico.</p>
+    <p class="sub">Per ogni partito due misure. Il <b>legame voti–soldi</b> usa tutte le province: è la correlazione tra la percentuale presa nel 2022 e gli euro per abitante chiesti. Il <b>confronto tra roccaforti e province deboli</b> mette a fianco il terzo di province dove il partito ha preso più voti e il terzo dove ne ha presi meno. Qui sotto trovi come è costruito, con l’esempio del partito selezionato.</p>
+    <div class="vsortbar"><label for="vsort">Ordina per</label><select id="vsort"><option value="rho">Legame voti–soldi, dal più alto</option><option value="rhoa">Legame voti–soldi, dal più basso</option><option value="diff">Differenza tra roccaforti e province deboli</option><option value="nw">Province con richieste</option><option value="">Ordine dei partiti</option></select></div>
     <div class="tablewrap"><table class="vtab" id="vtab"></table></div>
+    <p class="sub vleg" id="vleg"></p>
+    <div class="vsteps notr" id="vsteps"></div>
     <div class="mapshare"><span class="seglab">Dati</span><button class="btn" type="button" id="vcsv">Scarica i dati del grafico (CSV)</button><span class="dlnote">Voti 2022: Ministero dell’Interno, Eligendo. Popolazione: ISTAT 1/1/2025.</span></div>
     <p class="sub vnote"><b>Come leggerlo.</b> È una correlazione, non una prova di causa: il Sud vota di più M5S e riceve anche più richieste in generale. Gli emendamenti contati sono quelli che citano un luogo preciso; se ne citano più d’uno, i soldi sono divisi in parti uguali. Nel 2022 Azione e Italia Viva si presentarono insieme, quindi qui sono uniti. Il gruppo Misto è escluso. Manca la Valle d’Aosta, che non ha voto di lista.</p>
   </section>
@@ -647,7 +654,7 @@ function renderSummary(){
   const F=filtered,n=F.length;
   const inC=F.filter(r=>r.s==='Compensazione').length,inE=F.filter(r=>r.s==='Estraneità di materia').length;
   const L=F.filter(r=>r.loc),LE=L.filter(r=>r.s==='Estraneità di materia').length;
-  const sumL=L.reduce((s,r)=>s+(r.big?0:(r.e3||r.e||0)),0);
+  const sumL=L.reduce((s,r)=>s+AMT(r),0);
   const AP=F.filter(r=>r.o==='A').length,LA=L.filter(r=>r.o==='A').length;
   $('#tiles').innerHTML=
    `<div class="tile acc"><b>${nf(n)}</b><span>proposte${n!==D.length?' (filtrate su '+nf(D.length)+')':''} · ${esc(perLab())}</span></div>`+
@@ -696,7 +703,7 @@ function detHTML(r){
    <dt>Firmatari</dt><dd>${firm}</dd>
    <dt>Eletto in</dt><dd>${esc(r.cf||r.ce||'—')}${r.u?' · uninominale '+esc(r.u):''}</dd>
    <dt>Territorio</dt><dd>${esc(r.l.join(', ')||'—')}${r.pr.length?'<div class="meta">Prov.: '+esc(r.pr.join(', '))+'</div>':''}${r.rg.length?'<div class="meta">Regioni: '+esc(r.rg.join(', '))+'</div>':''}</dd>
-   <dt>Importo</dt><dd>costo annuo ${fmtE(r.e)}${r.ey?' ('+esc(r.ey)+')':''} · costo nel triennio ${fmtE(r.e3)} <span class="meta">(stima automatica${r.big?'; grande opera o rimodulazione, esclusa dalle somme':''})</span></dd>
+   <dt>Importo</dt><dd>costo annuo ${fmtE(r.e)}${r.ey?' ('+esc(r.ey)+')':''} · costo nel triennio ${fmtE(r.e3)} <span class="meta">(stima automatica${r.big?'; grande opera, rimodulazione o oltre 1 miliardo: esclusa dalle somme':''})</span></dd>
    <dt>Portata</dt><dd>${esc(r.po)}</dd>
    <dt>Copertura</dt><dd>${esc(r.cv)} <span class="meta">(da clausola nel testo)</span></dd>
    <dt>Tema</dt><dd>${esc(r.th.join(', '))}</dd></dl>
@@ -728,12 +735,13 @@ function renderChips(){const box=$('#pchips');if(!box||!D)return;const gs=ORDER.
   box.querySelectorAll('.pchip').forEach(b=>b.onclick=()=>{$('#mg').value=b.dataset.g;if(b.dataset.g)$('#mmode').value='imp';mapSel=null;renderMap()})}
 function mapVal(o){const m=$('#mmis').value;return m==='n'?o.n:(m==='pc'?(POP&&POP[o.p]?o.soldi/POP[o.p]:0):o.soldi)}
 function fmtPC(v){return (v<10?v.toLocaleString(LOC(),{maximumFractionDigits:1}):Math.round(v).toLocaleString(LOC()))+U('pc')}
+const AMT=r=>r.big?0:(r.e3||r.e||0);  // grandi opere, Ponte sullo Stretto, rimodulazioni e richieste oltre 1 miliardo: escluse da tutte le somme
 function mapAgg(ov){ov=ov||{};
   const g=$('#mg').value,es=('es' in ov)?ov.es:$('#mes').value,dep=$('#mdep').value.trim().toLowerCase(),one=$('#mone').checked,po=$('#mpo').value;const P={};let tot=0,n=0;
   const K={all:0,nAll:0,single:0,nSingle:0,multi:0,nMulti:0,none:0,nNone:0,dep:!!dep};
-  D.forEach(r=>{if(r.g==='Governo')return;if(g&&r.g!==g)return;if(dep&&r.p.toLowerCase()!==dep)return;if(one&&r.f.length!==1)return;if(po&&r.po!==po)return;
+  D.forEach(r=>{if(r.g==='Governo')return;if(g&&r.g!==g)return;if(dep&&r.p.toLowerCase()!==dep)return;if(one&&r.f.length!==1)return;if(po==='1'&&r.pm.length!==1)return;if(po==='m'&&r.pm.length<2)return;
     if(es==='AP'&&r.o!=='A')return;if(es==='A'&&r.s!=='Ammissibile')return;if(es==='I'&&r.s==='Ammissibile')return;if(es==='E'&&r.s!=='Estraneità di materia')return;
-    const v=r.big?0:(r.e3||r.e||0);K.all+=v;K.nAll++;
+    const v=AMT(r);K.all+=v;K.nAll++;
     if(!r.pm||!r.pm.length){K.none+=v;K.nNone++;return}
     if(r.pm.length===1){K.single+=v;K.nSingle++}else{K.multi+=v;K.nMulti++}
     const amt=v/r.pm.length;n++;tot+=amt*r.pm.length;
@@ -786,7 +794,7 @@ function renderMap(){
    const rowsZ=new Set();inZ.forEach(o=>o.rows.forEach(r=>rowsZ.add(r)));const eurZ=inZ.reduce((a,o)=>a+o.soldi,0);const nR=rowsZ.size;
    let share='';if(es&&nR){const B=mapAgg({es:''});const allZ=Object.values(B.P).filter(o=>!z||regOf[o.p]===z).reduce((a,o)=>a+o.soldi,0);if(allZ>0)share=` È il <b>${Math.round(eurZ/allZ*100)}%</b> dei soldi che ${who?esc(who)+' chiede':'i deputati chiedono'} per luoghi precisi${z?' in '+esc(z):''}.`}
    $('#mapsum').innerHTML=nR?`<b>${nf(nR)}</b> ${nR===1?'emendamento':'emendamenti'}${who?' di '+esc(who):''}${esT?' '+esT:''} ${nR===1?'chiede':'chiedono'} soldi per luoghi precisi${z?' in '+esc(z):''}: <b>${fmtM(eurZ)}</b> (${esc(perLab())}), in <b>${nf(inZ.length)}</b> ${inZ.length===1?'provincia':'province'}.`+(top?` In testa <b>${esc(top.p)}</b> con ${fmtV(mapVal(top))}${mm==='pc'?'':' ('+(mapVal(top)/(totZ||1)*100).toLocaleString(LOC(),{maximumFractionDigits:1})+'% del totale)'}.`:'')+share:`Nessun emendamento${who?' di '+esc(who):''}${esT?' '+esT:''} chiede soldi per luoghi precisi${z?' in '+esc(z):''}.`;
-   {const po=$('#mpo').value;if(po)$('#mapsum').insertAdjacentHTML('beforeend',' <span class="meta">'+(po==='Locale'?'Solo emendamenti per un singolo territorio.':'Solo emendamenti su più territori.')+'</span>')}}
+   {const po=$('#mpo').value;if(po)$('#mapsum').insertAdjacentHTML('beforeend',' <span class="meta">'+(po==='1'?'Solo emendamenti che nominano una sola provincia.':'Solo emendamenti che nominano più province.')+'</span>')}}
   // legend
   if(effPar()){const gs=ORDER.filter(g=>PCOL[g]&&Object.values(A.P).some(o=>topParty(o)===g));$('#maplegend').innerHTML='<b>Partito che chiede di più nella provincia</b>'+gs.map(g=>`<span><i class="sw" style="background:${PCOL[g]}"></i>${esc(g)}</span>`).join('')+'<span><i class="sw nd"></i>nessuna richiesta</span>'}
   else{const th=$('#mmis').value==='n'?TH_N:TH_SOLDI;const forcedNote=($('#mmode').value==='par'&&parForced())?'<span class="forced">Con un gruppo o un deputato selezionato c’è un solo partito in gioco: la mappa mostra i soldi chiesti.</span>':'';const mm_=$('#mmis').value;const mU=U('mln'),bU=U('mld'),k1=(1000).toLocaleString(LOC());const thS=SC(mm_==='n'?TH_N:(mm_==='pc'?TH_PC:TH_SOLDI));const fv=v=>mm_==='n'?nf(v):(mm_==='pc'?nf(v)+' €':fmtM(v));const lab=[(mm_==='n'?'1–':'fino a ')+fv(thS[0])].concat(thS.slice(1).map((t,i)=>fv(thS[i])+'–'+fv(t))).concat(['oltre '+fv(thS[thS.length-1])]);$('#maplegend').innerHTML='<b>'+(mm_==='n'?'Emendamenti':(mm_==='pc'?'Euro chiesti per abitante · '+perLab():'Euro chiesti · '+perLab()))+'</b><span><i class="sw nd"></i>nessuna richiesta</span>'+'<span class="ramp">'+curRamp().map((c,i)=>`<span class="rk"><i style="background:${c}"></i><em>${lab[i]}</em></span>`).join('')+'</span>'+forcedNote}
@@ -847,7 +855,7 @@ $('#mreset').onclick=()=>{['mg','mes','mpo','mzoom'].forEach(id=>$('#'+id).value
 let rankAll=false;
 function renderRank(){
   if(!D)return;const by={};const gsel=$('#rg2').value,rra=$('#rra').value,rq=fold($('#rq').value.trim());
-  D.forEach(r=>{if(r.g==='Governo'||(gsel&&r.g!==gsel)||(rra&&r.ra!==rra))return;if(rq&&!fold(r.p).includes(rq))return;const k=r.p+'|'+r.ra;const o=by[k]||(by[k]={p:r.p,ra:r.ra,g:r.g,gs:new Set(),n:0,i:0,e:0,loc:0,soldi:0,ap:0});o.n++;o.gs.add(r.g);o.g=r.g;if(r.s!=='Ammissibile')o.i++;if(r.s==='Estraneità di materia')o.e++;if(r.o==='A')o.ap++;if(r.loc){o.loc++;if(r.e3&&!r.big)o.soldi+=r.e3}});
+  D.forEach(r=>{if(r.g==='Governo'||(gsel&&r.g!==gsel)||(rra&&r.ra!==rra))return;if(rq&&!fold(r.p).includes(rq))return;const k=r.p+'|'+r.ra;const o=by[k]||(by[k]={p:r.p,ra:r.ra,g:r.g,gs:new Set(),n:0,i:0,e:0,loc:0,soldi:0,ap:0});o.n++;o.gs.add(r.g);o.g=r.g;if(r.s!=='Ammissibile')o.i++;if(r.s==='Estraneità di materia')o.e++;if(r.o==='A')o.ap++;if(r.loc){o.loc++;o.soldi+=AMT(r)}});
   const min=Math.max(1,parseInt($('#rmin').value)||1),k=$('#rk').value;
   let L=Object.values(by).filter(o=>o.n>=min);
   const key=o=>k==='pi'?o.i/o.n:k==='pe'?o.e/o.n:k==='pa'?o.ap/o.n:(o[k]||0);
@@ -883,10 +891,10 @@ const EM_HEAD=['Manovra','Ramo','Lettura','Emendamento','Articolo del ddl','Ogge
 const emRow=r=>[r.y,r.ra,r.le===2?'seconda':'prima',r.i,r.a,r.t,r.p,r.g,r.c,r.f.length,r.f.map(x=>x[0]+' ('+x[1]+')').join(', '),r.cf||r.ce||'',ESITO(r),OLAB[r.o],r.m||'',r.po,r.l.join(', '),r.pr.join(', '),r.rg.join(', '),r.th.join(', '),r.e||null,r.e?(r.ey||'non individuato nel testo'):'',r.e3||null,r.big?'sì':'no',r.cv,LINK(r)];
 $('#csvf').onclick=()=>{const n=filtered.length;if(!n){$('#csvf').textContent='Nessun emendamento da scaricare';setTimeout(()=>$('#csvf').textContent='Scarica CSV (filtrati)',3000);return}saveCSV($('#csvf'),'emendamenti-manovre-'+PA+'-'+PB+'-filtrati-'+n+'.csv',csvBuild(EM_HEAD,filtered.map(emRow)))};
 $('#csva').onclick=()=>{const all=D.slice().sort((a,b)=>a._k<b._k?-1:1);saveCSV($('#csva'),'emendamenti-manovre-'+PA+'-'+PB+'-tutti.csv',csvBuild(EM_HEAD,all.map(emRow)))};
-$('#csvr').onclick=()=>{const by={};D.forEach(r=>{if(r.g==='Governo')return;const k=r.p+'|'+r.g;const o=by[k]||(by[k]={p:r.p,g:r.g,c:r.c,n:0,i:0,cm:0,e:0,loc:0,eur:0});o.n++;if(r.s!=='Ammissibile')o.i++;if(r.s==='Compensazione')o.cm++;if(r.s==='Estraneità di materia')o.e++;if(r.loc)o.loc++;o.eur+=r.e3||r.e||0});
+$('#csvr').onclick=()=>{const by={};D.forEach(r=>{if(r.g==='Governo')return;const k=r.p+'|'+r.g;const o=by[k]||(by[k]={p:r.p,g:r.g,c:r.c,n:0,i:0,cm:0,e:0,loc:0,eur:0});o.n++;if(r.s!=='Ammissibile')o.i++;if(r.s==='Compensazione')o.cm++;if(r.s==='Estraneità di materia')o.e++;if(r.loc){o.loc++;o.eur+=AMT(r)}});
   const L=Object.values(by).sort((a,b)=>b.i/b.n-a.i/a.n||b.n-a.n);
-  saveCSV($('#csvr'),'parlamentari-manovre-'+PA+'-'+PB+'.csv',csvBuild(['Parlamentare (primo firmatario)','Gruppo','Schieramento','Emendamenti','Inammissibili','% inammissibili','Inammissibili per compensazione','Inammissibili per estraneità di materia','% estraneità di materia','Emendamenti per un solo territorio','Euro chiesti 2027-2029 (somma lorda)'],L.map(o=>[o.p,o.g,o.c,o.n,o.i,Math.round(o.i/o.n*1000)/10,o.cm,o.e,Math.round(o.e/o.n*1000)/10,o.loc,Math.round(o.eur)])))};
-function mapFiltTag(){const t=[];const z=$('#mzoom').value,g=$('#mg').value,d=$('#mdep').value.trim(),es=$('#mes').value;if(z)t.push(z);if(g)t.push(g);if(d)t.push(d);if($('#mone').checked)t.push('firma-unica');if(es)t.push({A:'ammissibili',I:'inammissibili',E:'estraneita'}[es]);if($('#mpo').value)t.push($('#mpo').value==='Locale'?'un-territorio':'piu-territori');return t.length?'-'+slug(t.join('-')):''}
+  saveCSV($('#csvr'),'parlamentari-manovre-'+PA+'-'+PB+'.csv',csvBuild(['Parlamentare (primo firmatario)','Gruppo','Schieramento','Emendamenti','Inammissibili','% inammissibili','Inammissibili per compensazione','Inammissibili per estraneità di materia','% estraneità di materia','Emendamenti per un solo territorio','Euro chiesti per singoli territori nel periodo'],L.map(o=>[o.p,o.g,o.c,o.n,o.i,Math.round(o.i/o.n*1000)/10,o.cm,o.e,Math.round(o.e/o.n*1000)/10,o.loc,Math.round(o.eur)])))};
+function mapFiltTag(){const t=[];const z=$('#mzoom').value,g=$('#mg').value,d=$('#mdep').value.trim(),es=$('#mes').value;if(z)t.push(z);if(g)t.push(g);if(d)t.push(d);if($('#mone').checked)t.push('firma-unica');if(es)t.push({A:'ammissibili',I:'inammissibili',E:'estraneita'}[es]);if($('#mpo').value)t.push($('#mpo').value==='1'?'una-provincia':'piu-province');return t.length?'-'+slug(t.join('-')):''}
 function mapExportRows(level){const A=mapAgg();const z=$('#mzoom').value;const groups=ORDER.filter(g=>g!=='Governo');
   const feats=mapGeo.features.filter(f=>!z||f.properties.reg_name===z);
   const units={};feats.forEach(f=>{const pp=f.properties;const key=level==='p'?pp.prov_name:pp.reg_name;const u=units[key]||(units[key]={reg:pp.reg_name,prov:pp.prov_name,acr:pp.prov_acr,pop:0,popOk:true,soldi:0,byG:{},rows:new Set()});
@@ -969,30 +977,43 @@ const VG=[{k:'FdI',lab:'FdI',gs:['FdI']},{k:'Lega',lab:'Lega',gs:['Lega']},{k:'F
 const G2K={};VG.forEach(x=>x.gs.forEach(g=>G2K[g]=x.k));
 let VOTI=null,VPOP=null,vSel='M5S',vLoading=false;
 function rankArr(x){const s=x.map((v,i)=>[v,i]).sort((a,b)=>a[0]-b[0]);const r=new Array(x.length);let i=0;while(i<s.length){let j=i;while(j+1<s.length&&s[j+1][0]===s[i][0])j++;for(let k=i;k<=j;k++)r[s[k][1]]=(i+j)/2;i=j+1}return r}
-function pearson(a,b){const n=a.length,ma=a.reduce((x,y)=>x+y,0)/n,mb=b.reduce((x,y)=>x+y,0)/n;let sxy=0,sx=0,sy=0;for(let i=0;i<n;i++){sxy+=(a[i]-ma)*(b[i]-mb);sx+=(a[i]-ma)**2;sy+=(b[i]-mb)**2}return sx&&sy?sxy/Math.sqrt(sx*sy):0}
+function pearson(a,b){const n=a.length,ma=a.reduce((x,y)=>x+y,0)/n,mb=b.reduce((x,y)=>x+y,0)/n;let sxy=0,sx=0,sy=0;for(let i=0;i<n;i++){sxy+=(a[i]-ma)*(b[i]-mb);sx+=(a[i]-ma)**2;sy+=(b[i]-mb)**2}return sx&&sy?sxy/Math.sqrt(sx*sy):NaN}
 const spearman=(a,b)=>pearson(rankArr(a),rankArr(b));
 function vData(k){const K=VOTI.K,P=VOTI.prov,ki=K.indexOf(k),g=VG.find(x=>x.k===k),amm=$('#vamm').checked;const E={},N={};
-  D.forEach(r=>{if(!g.gs.includes(r.g)||!r.pm.length)return;if(amm&&r.s!=='Ammissibile')return;const amt=r.e3||r.e||0;r.pm.forEach(p0=>{const p=PALIAS[p0]||p0;E[p]=(E[p]||0)+amt/r.pm.length;N[p]=(N[p]||0)+1})});
+  D.forEach(r=>{if(!g.gs.includes(r.g)||!r.pm.length)return;if(amm&&r.s!=='Ammissibile')return;const amt=AMT(r);r.pm.forEach(p0=>{const p=PALIAS[p0]||p0;E[p]=(E[p]||0)+amt/r.pm.length;N[p]=(N[p]||0)+1})});
   return Object.keys(P).filter(p=>VPOP[p]).map(p=>({p,sh:P[p][ki]/P[p][0]*100,eur:E[p]||0,n:N[p]||0,pc:(E[p]||0)/VPOP[p],pop:VPOP[p]}))}
 function vStats(rows){const rho=spearman(rows.map(r=>r.sh),rows.map(r=>r.pc));const s=rows.slice().sort((a,b)=>a.sh-b.sh);const t=Math.floor(s.length/3);const lo=s.slice(0,t),hi=s.slice(-t);
-  const f=a=>({pct:a.filter(r=>r.n).length/a.length*100,pc:a.reduce((x,r)=>x+r.eur,0)/a.reduce((x,r)=>x+r.pop,0),shMin:a[0].sh,shMax:a[a.length-1].sh});return {rho,lo:f(lo),hi:f(hi),nWith:rows.filter(r=>r.n).length,n:rows.length}}
+  const f=a=>({k:a.length,pct:a.filter(r=>r.n).length/a.length*100,pc:a.reduce((x,r)=>x+r.eur,0)/a.reduce((x,r)=>x+r.pop,0),eur:a.reduce((x,r)=>x+r.eur,0),pop:a.reduce((x,r)=>x+r.pop,0),shMin:a[0].sh,shMax:a[a.length-1].sh});const H=f(hi),Lo=f(lo);const n=rows.length,tt=Math.abs(rho)*Math.sqrt((n-2)/Math.max(1e-12,1-rho*rho));
+  return {rho,sig:n>3&&tt>1.96,lo:Lo,hi:H,ratio:Lo.pc>0?H.pc/Lo.pc:(H.pc>0?Infinity:NaN),nWith:rows.filter(r=>r.n).length,n}}
 const rhoWord=r=>{const a=Math.abs(r);return a<0.1?'nessun legame':a<0.3?'legame debole':a<0.5?'legame moderato':'legame forte'};
 const pct1=v=>v.toLocaleString(LOC(),{maximumFractionDigits:1})+'%';
 const pcF=v=>v>=100?Math.round(v).toLocaleString(LOC())+' €':v>=10?v.toLocaleString(LOC(),{maximumFractionDigits:0})+' €':v.toLocaleString(LOC(),{maximumFractionDigits:1})+' €';
+const diffTxt=d=>Math.abs(d)<0.05?'0 €':(d>0?'+':'−')+pcF(Math.abs(d));
+const ratioTxt=r=>isNaN(r)?'—':r===Infinity?L('solo nelle roccaforti'):'×'+r.toLocaleString(LOC(),{maximumFractionDigits:r>=10?0:1,minimumFractionDigits:r>=10?0:1});
+function ratioSentence(S){const r=S.ratio;if(isNaN(r))return '';if(r===Infinity)return Lf('Nelle province deboli non chiede nulla.');if(S.lo.pc<1&&r>1)return Lf('Nelle province deboli chiede quasi nulla.');if(r>=1.15)return Lf('Nelle roccaforti chiede {0} volte tanto.','<b>'+r.toLocaleString(LOC(),{maximumFractionDigits:1})+'</b>');if(r<=1/1.15)return Lf('Nelle roccaforti chiede meno: {0} di quello che chiede dove è debole.','<b>'+Math.round(r*100)+'%</b>');return Lf('Più o meno la stessa cifra nei due gruppi.')}
+function vSentence(lab,S){return Lf('Dove {0} ha preso più voti nel 2022 (dal {1} in su) i suoi parlamentari chiedono {2} per abitante; dove ne ha presi meno (fino al {3}) ne chiedono {4}.','<b>'+esc(lab)+'</b>',pct1(S.hi.shMin),'<b>'+pcF(S.hi.pc)+'</b>',pct1(S.lo.shMax),'<b>'+pcF(S.lo.pc)+'</b>')+' '+ratioSentence(S)}
+function vSteps(g,S){const lab='<b>'+esc(g.lab)+'</b>';const nm=S.n-S.hi.k-S.lo.k;
+  return '<h4>'+Lf('Come è costruito il confronto, con l’esempio di {0}',lab)+'</h4><ol>'+
+   '<li>'+Lf('Ordino le {0} province in base alla percentuale presa da {1} alle politiche del 2022.',S.n,lab)+'</li>'+
+   '<li>'+Lf('Prendo il terzo più alto, le «roccaforti»: {0} province, dove {1} ha preso dal {2} in su. E il terzo più basso, le «province deboli»: {3} province, fino al {4}. Le {5} province di mezzo restano fuori dal confronto.',S.hi.k,lab,pct1(S.hi.shMin),S.lo.k,pct1(S.lo.shMax),nm)+'</li>'+
+   '<li>'+Lf('In ciascun gruppo sommo gli euro chiesti dai parlamentari di {0} e li divido per gli abitanti del gruppo: {1} nelle roccaforti ({2} su {3} abitanti), {4} nelle province deboli ({5} su {6} abitanti).',lab,'<b>'+pcF(S.hi.pc)+'</b>',fmtM(S.hi.eur),nfm(S.hi.pop),'<b>'+pcF(S.lo.pc)+'</b>',fmtM(S.lo.eur),nfm(S.lo.pop))+'</li>'+
+   '<li>'+Lf('Confronto le due cifre: la differenza è {0} per abitante.',diffTxt(S.hi.pc-S.lo.pc))+' '+ratioSentence(S)+'</li></ol>'+
+   (isNaN(S.rho)?'':'<p>'+Lf('Il legame voti–soldi ({0}) guarda invece tutte le {1} province insieme: è positivo se, salendo con i voti, salgono anche gli euro chiesti per abitante; negativo se scendono. Va da −1 a +1.',(S.rho>=0?'+':'−')+Math.abs(S.rho).toLocaleString(LOC(),{maximumFractionDigits:2,minimumFractionDigits:2}),S.n)+'</p>')}
+const nfm=v=>v>=1e6?(v/1e6).toLocaleString(LOC(),{maximumFractionDigits:1})+' '+L('milioni'):Math.round(v).toLocaleString(LOC());
 function renderVoti(){if(!D)return;if(!VOTI){if(vLoading)return;vLoading=true;$('#vsum').textContent='Carico i dati delle elezioni 2022…';
   Promise.all([fetch('voti2022.json').then(r=>r.json()),POP?Promise.resolve(POP):fetch('popolazione.json').then(r=>r.json())]).then(([v,pp])=>{VOTI=v;VPOP=pp;if(!POP)POP=pp;vLoading=false;renderVoti()}).catch(()=>{vLoading=false;$('#vsum').textContent='Non riesco a caricare i dati delle elezioni 2022.'});return}
   const g=VG.find(x=>x.k===vSel),col=PCOL[g.gs[0]]||'#888';
   $('#vchips').innerHTML=VG.map(x=>`<button type="button" class="pchip" data-k="${x.k}" aria-pressed="${x.k===vSel}"><i style="background:${PCOL[x.gs[0]]}"></i>${esc(x.lab)}</button>`).join('');
   $('#vchips').querySelectorAll('.pchip').forEach(b=>b.onclick=()=>{vSel=b.dataset.k;renderVoti()});
   const rows=vData(vSel),S=vStats(rows);
-  $('#vsum').innerHTML=S.nWith?`Dove <b>${esc(g.lab)}</b> ha preso più voti nel 2022 (dal ${pct1(S.hi.shMin)} in su) i suoi deputati chiedono soldi per <b>${Math.round(S.hi.pct)}%</b> delle province, in media <b>${pcF(S.hi.pc)}</b> per abitante. Dove ne ha presi meno (fino al ${pct1(S.lo.shMax)}): <b>${Math.round(S.lo.pct)}%</b> delle province, <b>${pcF(S.lo.pc)}</b> per abitante.`:`I deputati di <b>${esc(g.lab)}</b> non chiedono soldi per luoghi precisi${$('#vamm').checked?' con emendamenti ammissibili':''}.`;
-  $('#vside').innerHTML=`<div class="stat"><b>${S.rho>=0?'+':''}${S.rho.toLocaleString(LOC(),{maximumFractionDigits:2,minimumFractionDigits:2})}</b><span>Correlazione tra voti e euro per abitante: <b style="display:inline;font-size:inherit">${rhoWord(S.rho)}</b>${S.rho<=-0.1?' (al contrario)':''}. Va da −1 a +1; 0 = nessun legame. Correlazione di rango (Spearman).</span></div><div class="stat"><b>${S.nWith} su ${S.n}</b><span>province per cui ${esc(g.lab)} chiede soldi</span></div>`;
+  $('#vsum').innerHTML=S.nWith?vSentence(g.lab,S):Lf($('#vamm').checked?'I parlamentari di {0} non chiedono soldi per luoghi precisi con emendamenti ammissibili.':'I parlamentari di {0} non chiedono soldi per luoghi precisi.','<b>'+esc(g.lab)+'</b>');
+  $('#vside').innerHTML=isNaN(S.rho)?`<div class="stat"><b>—</b><span>${L('Nessuna richiesta con luoghi precisi: la correlazione non si può calcolare.')}</span></div>`:`<div class="stat"><b>${S.rho>=0?'+':''}${S.rho.toLocaleString(LOC(),{maximumFractionDigits:2,minimumFractionDigits:2})}</b><span>Correlazione tra voti e euro per abitante: <b style="display:inline;font-size:inherit">${rhoWord(S.rho)}</b>${S.rho<=-0.1?' (al contrario)':''}. Va da −1 a +1; 0 = nessun legame. Correlazione di rango (Spearman).</span></div><div class="stat"><b>${S.nWith} su ${S.n}</b><span>province per cui ${esc(g.lab)} chiede soldi</span></div>`;
   // grafico
   const W=640,H=420,ml=58,mr=14,mt=14,mb=46,zeroBand=26;const xMax=Math.max(10,Math.ceil(Math.max(...rows.map(r=>r.sh))/10)*10);
   const pos=rows.filter(r=>r.pc>0);const yMaxL=Math.max(1,Math.ceil(Math.log10(Math.max(1,...pos.map(r=>r.pc)))));const yMinL=pos.length?Math.max(-1,Math.min(0,Math.floor(Math.log10(Math.min(...pos.map(r=>r.pc)))))):0;const grp3=v=>v.toLocaleString(LOC());
   const X=v=>ml+(v/xMax)*(W-ml-mr);const yTop=mt,yBot=H-mb-zeroBand;const Y=v=>v>0?yBot-(Math.log10(Math.max(v,0.1))-yMinL)/(yMaxL-yMinL)*(yBot-yTop):H-mb-zeroBand/2;
   let o='';for(let t=0;t<=xMax;t+=10)o+=`<line class="gr" x1="${X(t)}" x2="${X(t)}" y1="${yTop}" y2="${H-mb}"/><text x="${X(t)}" y="${H-mb+16}" text-anchor="middle">${t}%</text>`;
-  for(let L=yMinL;L<=yMaxL;L++){const v=10**L;o+=`<line class="gr" x1="${ml}" x2="${W-mr}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${ml-6}" y="${Y(v)+4}" text-anchor="end">${v>=1?grp3(v)+' €':'0,1 €'}</text>`}
+  for(let L=yMinL;L<=yMaxL;L++){const v=10**L;o+=`<line class="gr" x1="${ml}" x2="${W-mr}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${ml-6}" y="${Y(v)+4}" text-anchor="end">${v>=1?grp3(v)+' €':(0.1).toLocaleString(LOC())+' €'}</text>`}
   o+=`<line class="ax" x1="${ml}" x2="${W-mr}" y1="${yBot+4}" y2="${yBot+4}"/><text x="${ml-6}" y="${H-mb-zeroBand/2+4}" text-anchor="end">0 €</text>`;
   o+=`<text x="${(ml+W-mr)/2}" y="${H-8}" text-anchor="middle">Voti a ${esc(g.lab)} nel 2022 (% voti di lista)</text><text transform="translate(14 ${(yTop+yBot)/2}) rotate(-90)" text-anchor="middle">Euro chiesti per abitante (scala log)</text>`;
   const top=pos.slice().sort((a,b)=>b.pc-a.pc).slice(0,6).map(r=>r.p);const jit=p=>{let h=0;for(const c of p)h=(h*31+c.charCodeAt(0))%97;return (h/97-0.5)*14};
@@ -1001,20 +1022,26 @@ function renderVoti(){if(!D)return;if(!VOTI){if(vLoading)return;vLoading=true;$(
   const svg=$('#vsvg');svg.innerHTML=o;const tip=$('#vtip');
   svg.querySelectorAll('.pt').forEach(c=>{c.onmousemove=ev=>{const r=rows[+c.dataset.i];const box=$('.vchart').getBoundingClientRect();tip.innerHTML=`<b>${esc(r.p)}</b>Voti ${esc(g.lab)} 2022: ${pct1(r.sh)}<br>${r.n?fmtM(r.eur)+' chiesti · '+nf(r.n)+' '+(r.n===1?'emendamento':'emendamenti')+'<br>'+pcF(r.pc)+' per abitante':'Nessuna richiesta'}`;tip.hidden=false;let x=ev.clientX-box.left+12,y=ev.clientY-box.top+12;if(x>box.width-230)x-=240;tip.style.left=x+'px';tip.style.top=y+'px'};c.onmouseleave=()=>tip.hidden=true});
   // tabella
-  const T=VG.map(x=>({x,S:vStats(vData(x.k))}));
-  $('#vtab').innerHTML='<thead><tr><th rowspan="2">Partito</th><th rowspan="2">Province con richieste</th><th rowspan="2">Legame voti–soldi</th><th colspan="2" class="grp">Dove il partito è più forte<br><small>un terzo delle province, quelle con più voti</small></th><th colspan="2" class="grp">Dove il partito è più debole<br><small>un terzo delle province, quelle con meno voti</small></th></tr><tr><th>Province con richieste</th><th>€ per abitante</th><th>Province con richieste</th><th>€ per abitante</th></tr></thead><tbody>'+T.map(({x,S})=>`<tr data-k="${x.k}" class="${x.k===vSel?'on':''}"><td><i style="background:${PCOL[x.gs[0]]}"></i>${esc(x.lab)}</td><td>${S.nWith}</td><td>${S.rho>=0?'+':''}${S.rho.toLocaleString(LOC(),{maximumFractionDigits:2,minimumFractionDigits:2})}</td><td>${Math.round(S.hi.pct)}%</td><td>${pcF(S.hi.pc)}</td><td>${Math.round(S.lo.pct)}%</td><td>${pcF(S.lo.pc)}</td></tr>`).join('')+'</tbody>';
+  const T=VG.map(x=>({x,S:vStats(vData(x.k))}));const so=$('#vsort').value;const rk=v=>isFinite(v)?v:(v===Infinity?1e9:-1e9);
+  const rv=(S,d)=>isNaN(S.rho)?-9*d:S.rho;if(so==='rho')T.sort((a,b)=>rv(b.S,1)-rv(a.S,1));else if(so==='rhoa')T.sort((a,b)=>rv(a.S,-1)-rv(b.S,-1));else if(so==='diff')T.sort((a,b)=>(b.S.hi.pc-b.S.lo.pc)-(a.S.hi.pc-a.S.lo.pc));else if(so==='nw')T.sort((a,b)=>b.S.nWith-a.S.nWith);
+  const rhoTxt=S=>isNaN(S.rho)?'—':(S.rho>=0?'+':'−')+Math.abs(S.rho).toLocaleString(LOC(),{maximumFractionDigits:2,minimumFractionDigits:2})+(S.sig?'*':'');
+  const mxPc=Math.max(1e-9,...T.map(({S})=>Math.max(S.hi.pc,S.lo.pc)));const bar=(v,c)=>`<span class="vbar"><i style="width:${(v/mxPc*100).toFixed(1)}%;background:${c}"></i></span>`;
+  $('#vtab').innerHTML='<thead><tr><th rowspan="2">Partito</th><th rowspan="2">Legame voti–soldi<br><small>correlazione, tutte le province</small></th><th rowspan="2">Province con richieste</th><th colspan="2" class="grp">Roccaforti<br><small>il terzo di province con più voti</small></th><th colspan="2" class="grp">Province deboli<br><small>il terzo di province con meno voti</small></th><th rowspan="2">Differenza<br><small>€ per abitante</small></th></tr><tr><th>voti 2022</th><th>€ per abitante</th><th>voti 2022</th><th>€ per abitante</th></tr></thead><tbody>'+
+    T.map(({x,S})=>{const c=PCOL[x.gs[0]]||'#888';return `<tr data-k="${x.k}" class="${x.k===vSel?'on':''}"><td><i style="background:${c}"></i>${esc(x.lab)}</td><td>${rhoTxt(S)} <span class="meta">${isNaN(S.rho)?L('nessuna richiesta'):L(rhoWord(S.rho))}</span></td><td>${Lf('{0} su {1}',S.nWith,S.n)}</td><td>${Lf('dal {0}',pct1(S.hi.shMin))}</td><td>${pcF(S.hi.pc)} ${bar(S.hi.pc,c)}</td><td>${Lf('fino al {0}',pct1(S.lo.shMax))}</td><td>${pcF(S.lo.pc)} ${bar(S.lo.pc,'var(--muted)')}</td><td><b>${diffTxt(S.hi.pc-S.lo.pc)}</b></td></tr>`}).join('')+'</tbody>';
   $('#vtab').querySelectorAll('tbody tr').forEach(tr=>tr.onclick=()=>{vSel=tr.dataset.k;renderVoti();$('#vsvg').scrollIntoView({behavior:'smooth',block:'center'})});
+  $('#vleg').textContent=Lf('* = correlazione statisticamente diversa da zero (test al 5%, {0} province). «Differenza»: euro per abitante chiesti nelle roccaforti meno euro per abitante chiesti nelle province deboli; positiva se il partito chiede di più dove è forte. Correlazione e differenza possono avere segno opposto: la correlazione guarda solo l’ordine delle province e non risente di poche richieste molto grandi, la differenza sì.',T[0]?T[0].S.n:0);
+  $('#vsteps').innerHTML=vSteps(g,S);
   // contese vs sicure
   const K=VOTI.K,P=VOTI.prov,ix=k=>K.indexOf(k);const amm=$('#vamm').checked;const E={},N={};
-  D.forEach(r=>{if(r.g==='Governo'||!r.pm.length)return;if(amm&&r.s!=='Ammissibile')return;const amt=r.e3||r.e||0;r.pm.forEach(p0=>{const p=PALIAS[p0]||p0;E[p]=(E[p]||0)+amt/r.pm.length;N[p]=(N[p]||0)+1})});
+  D.forEach(r=>{if(r.g==='Governo'||!r.pm.length)return;if(amm&&r.s!=='Ammissibile')return;const amt=AMT(r);r.pm.forEach(p0=>{const p=PALIAS[p0]||p0;E[p]=(E[p]||0)+amt/r.pm.length;N[p]=(N[p]||0)+1})});
   const pr=Object.keys(P).filter(p=>VPOP[p]).map(p=>{const v=P[p];const cdx=v[ix('FdI')]+v[ix('Lega')]+v[ix('FI')]+v[ix('NM')],csx=v[ix('PD')]+v[ix('AVS')]+v[ix('PiuE')],m5=v[ix('M5S')];const t=[cdx,csx,m5].sort((a,b)=>b-a);return {p,m:(t[0]-t[1])/v[0]*100,eur:E[p]||0,n:N[p]||0,pop:VPOP[p]}}).sort((a,b)=>a.m-b.m);
   const t3=Math.floor(pr.length/3);const grp=[['Contese',pr.slice(0,t3)],['Intermedie',pr.slice(t3,pr.length-t3)],['Sicure',pr.slice(pr.length-t3)]].map(([n,a])=>({n,pc:a.reduce((x,r)=>x+r.eur,0)/a.reduce((x,r)=>x+r.pop,0),pct:a.filter(r=>r.n).length/a.length*100,mMin:a[0].m,mMax:a[a.length-1].m}));
   const mx=Math.max(...grp.map(x=>x.pc))||1;
   if($('#vswing'))$('#vswing').innerHTML='<div class="swb">'+grp.map(x=>`<span>${x.n}<br><small class="sub">distacco ${Math.round(x.mMin)}–${Math.round(x.mMax)} punti</small></span><span class="tr"><i style="width:${(x.pc/mx*100).toFixed(1)}%"></i></span><span class="sv"><b>${pcF(x.pc)}</b> per abitante · ${Math.round(x.pct)}% con richieste</span>`).join('')+'</div>';
   window._vrows=rows}
-$('#vamm').onchange=()=>renderVoti();
+$('#vamm').onchange=()=>renderVoti();$('#vsort').onchange=()=>renderVoti();
 $('#vcsv').onclick=()=>{if(!VOTI||!window._vrows)return;const g=VG.find(x=>x.k===vSel);const rows=window._vrows.slice().sort((a,b)=>b.pc-a.pc);
-  saveCSV($('#vcsv'),'voti2022-e-soldi-chiesti-'+slug(g.lab)+($('#vamm').checked?'-ammissibili':'')+'.csv',csvBuild(['Provincia','Voti '+g.lab+' 2022 (% voti di lista)','Euro chiesti da '+g.lab+' 2027-2029','Euro per abitante','Emendamenti che nominano la provincia','Popolazione al 1/1/2025'],rows.map(r=>[r.p,Math.round(r.sh*100)/100,Math.round(r.eur),Math.round(r.pc*100)/100,r.n,r.pop])))};
+  saveCSV($('#vcsv'),'voti2022-e-soldi-chiesti-'+slug(g.lab)+($('#vamm').checked?'-ammissibili':'')+'.csv',csvBuild(['Provincia','Voti '+g.lab+' 2022 (% voti di lista)','Euro chiesti da '+g.lab+' ('+perLab()+')','Euro per abitante','Emendamenti che nominano la provincia','Popolazione al 1/1/2025'],rows.map(r=>[r.p,Math.round(r.sh*100)/100,Math.round(r.eur),Math.round(r.pc*100)/100,r.n,r.pop])))};
 
 /* ---- Analisi (nota di ricerca) ---- */
 var AN=null,anLoading=false;
