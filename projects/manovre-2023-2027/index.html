@@ -295,6 +295,7 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
 .period .pf{display:inline-flex;gap:6px;align-items:center;font-size:13px;color:var(--muted)}.period select{padding:4px 6px}
 .pnote{font-size:12.5px;color:var(--muted)}
 .qgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}@media (max-width:860px){.qgrid{grid-template-columns:minmax(0,1fr)}}
+.qdot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:middle}.qpctl{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 10px}#qparty th.qs:hover{color:var(--accent)}#qparty th.on{color:var(--accent)}
 .qbars text{fill:var(--muted);font-size:11px}.qbars .lab{fill:var(--fg);font-size:12px}
 .chip.st-ap{background:var(--ok);color:var(--bg)}
 .find p{margin:0 0 8px;max-width:90ch}
@@ -320,7 +321,7 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
   <section class="tiles" id="qtiles" aria-label="Riepilogo"></section>
   <section class="panel"><h2>Quante proposte, e che fine hanno fatto</h2><p class="sub">Proposte presentate nella commissione Bilancio di ciascuna Camera, per esito. La prima lettura è quella in cui la manovra si cambia davvero; in seconda lettura il testo arriva «blindato» e non passa nessuna modifica (²).</p><div class="legend"><span><i class="sw" style="background:var(--ok)"></i>Approvata</span><span><i class="sw c-bad"></i>Inammissibile</span><span><i class="sw c-warn"></i>Ritirata</span><span><i class="sw" style="background:var(--line)"></i>Respinta, decaduta o non votata</span></div><div class="tablewrap"><svg id="qbars" class="qbars" viewBox="0 0 900 330" style="width:100%;min-width:620px;height:auto" role="img" aria-label="Proposte per manovra, ramo ed esito"></svg></div><div class="tablewrap"><table class="rank" id="qtab"></table></div><p class="sub">Il 2023 alla Camera conta solo le proposte <b>segnalate</b> dai gruppi (1.043): nel dicembre 2022 la Camera non ha pubblicato i testi di tutte le circa 3.000 presentate. La manovra 2027 non è ancora stata votata in commissione.</p></section>
   <section class="qgrid"><div class="panel"><h2>Chi firma le proposte approvate</h2><p class="sub">Proposte approvate, per schieramento del primo firmatario.</p><svg id="qcoal" class="qbars" viewBox="0 0 520 210" style="width:100%;height:auto"></svg></div><div class="panel"><h2>Quanto conviene essere in maggioranza</h2><p class="sub">Quota di proposte approvate sul totale presentato dallo schieramento, prime letture già votate.</p><svg id="qrate" class="qbars" viewBox="0 0 520 210" style="width:100%;height:auto"></svg></div></section>
-  <section class="panel"><h2>Partito per partito</h2><p class="sub">Primo firmatario, gruppo alla data della manovra. Ogni cella: presentate · <b>approvate</b>. Clicca un partito per vedere le sue proposte approvate nell’elenco.</p><div class="tablewrap"><table class="rank" id="qparty"></table></div></section>
+  <section class="panel"><h2>Partito per partito</h2><p class="sub">Primo firmatario, gruppo alla data della manovra. Le percentuali sono sul totale delle proposte del partito nel periodo; la manovra 2027 non è ancora stata votata, quindi non ha approvate. Clicca un titolo di colonna per ordinare, un partito per vedere le sue proposte approvate nell’elenco.</p><div class="qpctl"><div class="f"><label for="qps">Ordina per</label><select id="qps"><option value="n">Proposte presentate</option><option value="pap">% approvate</option><option value="pia">% inammissibili</option><option value="pam">% ammissibili</option><option value="plo">% per un solo territorio</option><option value="eur">Euro chiesti per territori</option><option value="g">Ordine dei partiti</option></select></div><div class="f"><label for="qpy">Colonne per anno</label><select id="qpy"><option value="np">Presentate · approvate</option><option value="pap">% approvate</option><option value="pia">% inammissibili</option><option value="none">Nascondi</option></select></div></div><div class="tablewrap"><table class="rank" id="qparty"></table></div></section>
 </div>
 <div id="view-elenco" class="view">
   <section class="tiles" id="tiles" aria-label="Riepilogo"></section>
@@ -442,7 +443,7 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
       <div class="mapside" id="mapside"></div>
     </div>
     <div class="mapshare"><span class="seglab">Condividi questa mappa</span><button class="btn pri" type="button" id="imgcopy">Copia immagine</button><button class="btn" type="button" id="imgsave">Scarica immagine (PNG)</button><button class="btn" type="button" id="desccopy">Copia descrizione</button><span class="dlnote">Titolo, legenda e fonte sono già nell’immagine.</span></div>
-    <p class="sub">Somme chieste per i tre anni di ciascuna manovra, inammissibili compresi; sommando più manovre gli importi si accumulano. Un emendamento su più province è diviso in parti uguali; esclusi grandi opere e rimodulazioni (es. Ponte sullo Stretto) e richieste oltre 1 miliardo. Popolazione ISTAT al 1° gennaio 2025. <a href="#metodo">Fonti e metodo</a>.</p>
+    <p class="sub">Somme chieste per i tre anni di ciascuna manovra, inammissibili compresi; sommando più manovre gli importi si accumulano. Un emendamento su più province è diviso in parti uguali; contano tutte le cifre chieste, grandi opere comprese. Popolazione ISTAT al 1° gennaio 2025. <a href="#metodo">Fonti e metodo</a>.</p>
   </section>
 </div>
 <div id="view-voti" class="view" hidden>
@@ -468,46 +469,41 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
 </div>
 <div id="view-analisi" class="view" hidden>
   <article class="paper">
-    <p class="kicker">Nota di ricerca · cosa dicono i dati, con quali cautele</p>
-    <h2 id="ah2">Il voto del 2022 spiega dove i partiti chiedono spesa locale?</h2>
-    <section class="easy" aria-label="In breve"><h3>In breve, senza tecnicismi</h3><div id="abrief">Carico i risultati…</div></section>
-    <details class="gloss"><summary>Come leggere i numeri di questa pagina (glossario)</summary>
-      <dl>
-        <dt>Probabilità di richiesta</dt><dd>Quante volte su 100 un partito presenta almeno una proposta che chiede soldi per una provincia, in una manovra.</dd>
-        <dt>Punti percentuali</dt><dd>Differenza tra due percentuali: dal 14% al 26% sono 12 punti (non il 12%).</dd>
-        <dt>Effetti fissi</dt><dd>Confrontare il simile con il simile. «Partito × manovra»: il PD del 2025 è confrontato solo con il PD del 2025. «Partito × regione»: si confrontano solo province della stessa regione per lo stesso partito, così non si scambia per «voto» una differenza tra Nord e Sud.</dd>
-        <dt>Errore standard</dt><dd>Quanto è incerta la stima. Se il coefficiente è più di circa due volte l’errore standard, è difficile che sia solo caso (stelline).</dd>
-        <dt>Cluster</dt><dd>Gli errori tengono conto che le osservazioni di una stessa provincia (o dello stesso parlamentare) non sono indipendenti.</dd>
-      </dl>
-    </details>
+    <p class="kicker">Nota di ricerca · analisi descrittiva, con i suoi limiti</p>
+    <h2 id="ah2">I partiti chiedono più soldi dove hanno più voti?</h2>
+    <p>Per ogni manovra, partito e provincia guardo se i parlamentari del partito hanno presentato almeno una proposta che chiede soldi per quella provincia, e lo confronto con la percentuale presa dal partito nella provincia alle politiche del 2022. Le osservazioni sono <span id="anobs" class="notr"></span>. È un’analisi descrittiva: misura un’associazione, non un effetto causale.</p>
+    <section class="easy" aria-label="In sintesi"><h3>In sintesi</h3><div id="abrief" class="notr">Carico i risultati…</div></section>
 
-    <figure class="afig"><figcaption><b>Figura 1. Il legame, manovra per manovra.</b> Variazione della probabilità che un partito chieda soldi per una provincia, per 10 punti di voto in più nel 2022 (punti percentuali), con intervallo al 95%. Pieno: confronto tra tutte le province (effetti fissi di partito e di regione). Vuoto: solo province della stessa regione per lo stesso partito.</figcaption>
-      <svg id="afig" viewBox="0 0 640 300" role="img" aria-label="Coefficienti per manovra"></svg>
-      <p class="plain">Ogni pallino è una manovra. A destra dello zero: dove il partito ha preso più voti, chiede più spesso soldi. I pallini pieni sono tutti lontani dallo zero; quelli vuoti, che confrontano solo province della stessa regione, sono più incerti anno per anno.</p></figure>
+    <figure class="afig"><figcaption><b>Figura 1. Quanto spesso un partito chiede soldi per una provincia, secondo la sua forza lì</b> (<span id="aper"></span>). Per ogni partito le province sono divise in cinque gruppi uguali secondo i voti presi nel 2022, dal quinto più debole al quinto più forte. Ogni barra è la percentuale di casi (provincia × partito × manovra) con almeno una richiesta.</figcaption>
+      <svg id="adesc" viewBox="0 0 640 300" role="img" aria-label="Percentuale di richieste per quinto di voti"></svg>
+      <p class="plain notr" id="adescp"></p></figure>
 
-    <figure class="afig"><figcaption><b>Tabella 1. Voti 2022 e richieste di spesa locale</b> (<span id="aper"></span>). Coefficienti OLS × 100; errori standard tra parentesi.</figcaption>
+    <figure class="afig"><figcaption><b>Tabella 1. Lo stesso confronto in un modello lineare</b> (<span id="aper2"></span>). Variazione della probabilità di una richiesta, in punti percentuali, per 10 punti di voto in più; errori standard tra parentesi, per provincia.</figcaption>
       <div class="tablewrap"><table class="rtab" id="atab"></table></div><p class="tnote" id="anote"></p></figure>
 
-    <figure class="afig" id="ahetf"><figcaption><b>Figura 2. Chi lo fa: partito per partito.</b> Stesso confronto della colonna (2), stimato separatamente per ogni partito sull’intera legislatura. Barre = intervallo al 95%.</figcaption>
+    <figure class="afig" id="ahetf"><figcaption><b>Figura 2. Partito per partito</b>, sull’intera legislatura (modello della colonna 2). Barre = intervallo al 95%.</figcaption>
       <svg id="ahet" viewBox="0 0 640 300" role="img" aria-label="Coefficienti per partito"></svg>
-      <p class="plain" id="ahetp"></p></figure>
+      <p class="plain notr" id="ahetp"></p></figure>
 
-    <figure class="afig" id="aspecf" hidden><figcaption><b>Figura 3. Quanto è solido il risultato: <span id="aspn"></span> modi diversi di stimarlo.</b> Ogni punto è una specificazione (campione, definizione di richiesta, effetti fissi, misura del voto), ordinate dalla più bassa alla più alta. Pieno = significativa al 5%.</figcaption>
-      <svg id="aspec" class="notr" viewBox="0 0 640 260" role="img" aria-label="Curva delle specificazioni"></svg>
-      <p class="plain" id="aspecp"></p></figure>
+    <figure class="afig"><figcaption><b>Tabella 2. Chi riesce a far approvare una proposta.</b> Proposte di deputati e senatori nelle prime letture già votate del periodo; modello lineare con effetti fissi per manovra e Camera, errori standard per primo firmatario.</figcaption>
+      <div class="tablewrap"><table class="rtab" id="aptab"></table></div></figure>
 
-    <figure class="afig"><figcaption><b>Tabella 2. Chi riesce a far approvare una proposta.</b> Modello lineare di probabilità su tutte le proposte di deputati e senatori nelle prime letture già votate del periodo, con effetti fissi per manovra e ramo; errori standard a cluster per primo firmatario.</figcaption>
-      <div class="tablewrap"><table class="rtab" id="aptab"></table></div>
-      <p class="plain">Una proposta dell’opposizione passa circa 3 volte su 100; una della maggioranza ha quasi 9 punti in più. Chiedere soldi per un territorio preciso cambia poco, una volta tenuto conto di chi firma.</p></figure>
-
-    <h3>Limiti</h3>
+    <h3>Quanto fidarsi di questi numeri</h3>
     <ul class="alist">
-      <li><b>Correlazioni, non cause.</b> I partiti sono forti dove ci sono anche certi bisogni locali; gli effetti fissi riducono ma non eliminano il problema.</li>
-      <li><b>Dati non omogenei.</b> Il 2023 alla Camera contiene solo le proposte segnalate; nelle seconde letture non passa nessuna modifica; la manovra 2027 non è ancora stata votata.</li>
-      <li><b>Luoghi e cifre letti in automatico.</b> Gli euro sono quelli scritti nei testi dai proponenti, non effetti finanziari certificati.</li>
-      <li><b>Gruppi.</b> Al Senato i componenti AVS e Azione del Misto sono attribuiti per nome; Azione e Italia Viva sono uniti perché nel 2022 si presentarono insieme.</li>
+      <li><b>Associazione, non causa.</b> Dove un partito è forte possono esserci anche bisogni, interessi o reti locali diverse. Confrontare province della stessa regione riduce il problema ma non lo elimina.</li>
+      <li><b>Chiedere non è ottenere.</b> Presentare una proposta costa poco. La variabile misura l’attenzione dei parlamentari, non la spesa che arriva davvero.</li>
+      <li><b>Pochi partiti, pochi anni.</b> Otto partiti e cinque manovre: le stime per i partiti piccoli e per i singoli anni sono imprecise. <span id="arob" class="notr"></span></li>
+      <li><b>Dati non omogenei.</b> Per il 2023 la Camera ha pubblicato solo le proposte segnalate dai gruppi; nelle seconde letture non passa nessuna modifica; la manovra 2027 non è ancora stata votata.</li>
+      <li><b>Classificazione automatica.</b> Luoghi e cifre sono letti dai testi; le richieste più grandi sono state controllate a mano.</li>
     </ul>
-    <p><button class="btn" id="pcsv" type="button">Scarica il pannello di replica (CSV)</button> <span class="meta" id="pcsvm"></span> · Il codice di replica completo è disponibile su richiesta all’autore.</p>
+    <details class="gloss"><summary>Glossario</summary>
+      <dl>
+        <dt>Punti percentuali</dt><dd>Differenza tra due percentuali: dal 14% al 26% sono 12 punti.</dd>
+        <dt>Effetti fissi</dt><dd>Confrontare il simile con il simile. «Partito × manovra»: il PD del 2025 è confrontato solo con il PD del 2025. «Partito × regione»: si confrontano solo province della stessa regione per lo stesso partito.</dd>
+        <dt>Errore standard</dt><dd>Quanto è incerta la stima. Se il coefficiente è più di circa due volte l’errore standard, è difficile che sia solo caso (asterischi).</dd>
+      </dl>
+    </details>
+    <p><button class="btn" id="pcsv" type="button">Scarica i dati dell’analisi (CSV)</button> <span class="meta" id="pcsvm"></span></p>
   </article>
 </div>
   <section class="note" id="metodo">
@@ -524,7 +520,7 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
       <dt>Una riga</dt><dd>Una proposta col suo numero. Le riformulazioni («testo 2», «nuova formulazione») sono fuse nella proposta originale; se una formulazione è approvata, la proposta è approvata.</dd>
       <dt>Esito finale</dt><dd>Quello scritto nei documenti ufficiali. Al Senato «Accolto» vale come approvato. «Respinto o non votato» comprende respinte, decadute, accantonate e mai votate.</dd>
       <dt>Ammissibilità</dt><dd>Inammissibile per compensazione (copertura mancante o inadatta), per estraneità di materia, o per altri motivi indicati nei fascicoli.</dd>
-      <dt>Costo</dt><dd>La cifra scritta dal proponente per i tre anni della manovra. Non è una stima d’impatto. Escluse dalle somme grandi opere e rimodulazioni (es. Ponte sullo Stretto) e richieste oltre 1 miliardo.</dd>
+      <dt>Costo</dt><dd>La cifra scritta dal proponente per i tre anni della manovra. Non è una stima d’impatto. Le somme comprendono tutte le cifre chieste, grandi opere comprese. Sono escluse solo le poche proposte che riscrivono uno stanziamento già previsto senza chiedere soldi nuovi, come quelle che cambiano il calendario dei fondi del Ponte sullo Stretto.</dd>
       <dt>Copertura</dt><dd>Il fondo indicato nella clausola di copertura, letto in automatico (quasi sempre FISPE o Fondo esigenze indifferibili). Le coperture non si sommano.</dd>
       <dt>Territorio</dt><dd>Comuni e province letti nel testo, esclusa la copertura. Locale = uno o pochi luoghi; più territori = sei o più luoghi in almeno tre regioni; esclusi i fondi nazionali.</dd>
       <dt>Testi</dt><dd>Nel sito i testi lunghi sono accorciati; il testo integrale è sempre nella scheda ufficiale. Per il 2023 alla Camera ci sono solo le proposte segnalate.</dd>
@@ -676,7 +672,7 @@ function renderSummary(){
   $('#provbars').innerHTML=top.length?top.map(([p,v])=>`<button class="bar${p===ps?' on':''}" data-p="${esc(p)}" type="button"><span class="lb">${esc(p)}</span><span class="tr"><i class="c-acc" style="width:${(v/pm*100).toFixed(2)}%"></i></span><span class="vl num">${v}</span></button>`).join(''):'<p class="sub">Nessun emendamento per un solo territorio nel filtro corrente.</p>';
   document.querySelectorAll('#provbars .bar').forEach(b=>b.onclick=()=>{const v=b.dataset.p;$('#fp').value=($('#fp').value===v?'':v);shown=100;apply()});
   const sumAll=F.reduce((s,r)=>s+(r.big?0:(r.e3||r.e||0)),0);
-  $('#cnt').innerHTML=`${nf(n)} proposte <small>· somma dei costi triennali stimati: ${fmtE(sumAll)} (indicativa: proposte identiche si ripetono, grandi opere escluse)</small>`;
+  $('#cnt').innerHTML=`${nf(n)} proposte <small>· somma dei costi triennali stimati: ${fmtE(sumAll)} (indicativa: proposte identiche si ripetono)</small>`;
 }
 
 function rowHTML(r){
@@ -703,7 +699,7 @@ function detHTML(r){
    <dt>Firmatari</dt><dd>${firm}</dd>
    <dt>Eletto in</dt><dd>${esc(r.cf||r.ce||'—')}${r.u?' · uninominale '+esc(r.u):''}</dd>
    <dt>Territorio</dt><dd>${esc(r.l.join(', ')||'—')}${r.pr.length?'<div class="meta">Prov.: '+esc(r.pr.join(', '))+'</div>':''}${r.rg.length?'<div class="meta">Regioni: '+esc(r.rg.join(', '))+'</div>':''}</dd>
-   <dt>Importo</dt><dd>costo annuo ${fmtE(r.e)}${r.ey?' ('+esc(r.ey)+')':''} · costo nel triennio ${fmtE(r.e3)} <span class="meta">(stima automatica${r.big?'; grande opera, rimodulazione o oltre 1 miliardo: esclusa dalle somme':''})</span></dd>
+   <dt>Importo</dt><dd>costo annuo ${fmtE(r.e)}${r.ey?' ('+esc(r.ey)+')':''} · costo nel triennio ${fmtE(r.e3)} <span class="meta">(stima automatica${r.big?'; esclusa dalle somme: riscrive uno stanziamento già previsto, senza chiedere soldi nuovi':''})</span></dd>
    <dt>Portata</dt><dd>${esc(r.po)}</dd>
    <dt>Copertura</dt><dd>${esc(r.cv)} <span class="meta">(da clausola nel testo)</span></dd>
    <dt>Tema</dt><dd>${esc(r.th.join(', '))}</dd></dl>
@@ -887,7 +883,7 @@ async function saveCSV(btn,name,text){const lab=btn.textContent;const done=m=>{b
   try{const u=URL.createObjectURL(new Blob([text],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);done('Scaricato')}catch(e){done('Download non disponibile qui')}}
 const ESITO=r=>r.s==='Ammissibile'?(r.pz?'Ammissibile, in parte inammissibile':'Ammissibile'):(r.s==='Compensazione'?'Inammissibile per compensazione':r.s==='Altro motivo'?'Inammissibile':'Inammissibile per estraneità di materia')+(r.pz?' (solo una parte)':'');
 function firstOf(r){return r.d?'no, stesso testo dell’Em. '+r.d:'sì'}
-const EM_HEAD=['Manovra','Ramo','Lettura','Emendamento','Articolo del ddl','Oggetto','Primo firmatario','Gruppo del primo firmatario','Schieramento','Numero di firmatari','Firmatari (gruppo)','Regione di elezione del primo firmatario','Ammissibilità','Esito finale','Motivo di inammissibilità','Portata','Comuni o luoghi citati','Province citate','Regioni citate','Tema','Costo annuo (euro)','Anno a cui si riferisce il costo annuo','Costo nel triennio (euro)','Grande opera o rimodulazione (esclusa dalle somme)','Copertura indicata','Scheda ufficiale'];
+const EM_HEAD=['Manovra','Ramo','Lettura','Emendamento','Articolo del ddl','Oggetto','Primo firmatario','Gruppo del primo firmatario','Schieramento','Numero di firmatari','Firmatari (gruppo)','Regione di elezione del primo firmatario','Ammissibilità','Esito finale','Motivo di inammissibilità','Portata','Comuni o luoghi citati','Province citate','Regioni citate','Tema','Costo annuo (euro)','Anno a cui si riferisce il costo annuo','Costo nel triennio (euro)','Esclusa dalle somme (non chiede soldi nuovi)','Copertura indicata','Scheda ufficiale'];
 const emRow=r=>[r.y,r.ra,r.le===2?'seconda':'prima',r.i,r.a,r.t,r.p,r.g,r.c,r.f.length,r.f.map(x=>x[0]+' ('+x[1]+')').join(', '),r.cf||r.ce||'',ESITO(r),OLAB[r.o],r.m||'',r.po,r.l.join(', '),r.pr.join(', '),r.rg.join(', '),r.th.join(', '),r.e||null,r.e?(r.ey||'non individuato nel testo'):'',r.e3||null,r.big?'sì':'no',r.cv,LINK(r)];
 $('#csvf').onclick=()=>{const n=filtered.length;if(!n){$('#csvf').textContent='Nessun emendamento da scaricare';setTimeout(()=>$('#csvf').textContent='Scarica CSV (filtrati)',3000);return}saveCSV($('#csvf'),'emendamenti-manovre-'+PA+'-'+PB+'-filtrati-'+n+'.csv',csvBuild(EM_HEAD,filtered.map(emRow)))};
 $('#csva').onclick=()=>{const all=D.slice().sort((a,b)=>a._k<b._k?-1:1);saveCSV($('#csva'),'emendamenti-manovre-'+PA+'-'+PB+'-tutti.csv',csvBuild(EM_HEAD,all.map(emRow)))};
@@ -927,7 +923,7 @@ function imgExplain(){const mm=$('#mmis').value,who=mapWho(),g=$('#mg').value,de
   if(effPar())return Lf('Colore = gruppo che chiede più soldi in ogni provincia (non dice quanto).')+' '+Lf('Tratteggio = nessuna richiesta.');
   const base=mm==='n'?'più emendamenti':mm==='pc'?'più euro chiesti per abitante':'più euro chiesti';const whoT=who.replace(', firma unica',Lf(', firma unica'));
   return (who?Lf('Più scuro = '+base+' da {0}.',whoT):Lf('Più scuro = '+base+'.'))+' '+Lf('Tratteggio = nessuna richiesta.')+(mm==='soldi'?' '+Lf('Le province grandi tendono a risultare più scure.'):'')+(g&&!dep?' '+Lf('Stessa scala di colori per tutti i partiti.'):'')}
-function srcText(es){return 'Fonti: Camera dei deputati e Senato della Repubblica, fascicoli ed elenchi delle proposte emendative alle leggi di bilancio 2023–2027 (commissioni Bilancio); ISTAT, popolazione al 1° gennaio 2025. Cifre chieste dai proponenti per il triennio di ciascuna manovra'+(es?'':', inammissibili comprese')+'; '+perLab()+'. Solo proposte che citano un luogo preciso; se ne citano più d’uno, i soldi sono divisi in parti uguali. Esclusi fondi nazionali, grandi opere e rimodulazioni.'}
+function srcText(es){return 'Fonti: Camera dei deputati e Senato della Repubblica, fascicoli ed elenchi delle proposte emendative alle leggi di bilancio 2023–2027 (commissioni Bilancio); ISTAT, popolazione al 1° gennaio 2025. Cifre chieste dai proponenti per il triennio di ciascuna manovra'+(es?'':', inammissibili comprese')+'; '+perLab()+'. Solo proposte che citano un luogo preciso; se ne citano più d’uno, i soldi sono divisi in parti uguali. Esclusi i fondi nazionali; grandi opere comprese.'}
 function mapDescription(){const S=mapState();return [S.title,S.sum,L('Filtri:')+' '+S.filt.join(' · ')+'.',L('Come leggerla:')+' '+S.explain,(S.top.length?Lf(S.mm==='pc'?'Province con più euro per abitante:':S.mm==='n'?'Province con più emendamenti:':'Province con più soldi chiesti:')+' '+S.top.slice(0,5).map((t,i)=>(i+1)+'. '+t.p+' '+t.v+(t.pct?' ('+Lf('{0} del totale',t.pct)+')':'')).join('; ')+'.':''),Lf('Province senza richieste: {0} su {1}.',S.nz-S.nWith,S.nz),S.src].filter(Boolean).join('\n')}
 function wrapLines(ctx,text,w){const out=[];text.split('\n').forEach(par=>{let line='';par.split(' ').forEach(word=>{const t=line?line+' '+word:word;if(ctx.measureText(t).width>w&&line){out.push(line);line=word}else line=t});out.push(line)});return out}
 async function mapPNG(){const S=mapState();try{await document.fonts.ready}catch(e){}
@@ -990,7 +986,7 @@ const pct1=v=>v.toLocaleString(LOC(),{maximumFractionDigits:1})+'%';
 const pcF=v=>v>=100?Math.round(v).toLocaleString(LOC())+' €':v>=10?v.toLocaleString(LOC(),{maximumFractionDigits:0})+' €':v.toLocaleString(LOC(),{maximumFractionDigits:1})+' €';
 const diffTxt=d=>Math.abs(d)<0.05?'0 €':(d>0?'+':'−')+pcF(Math.abs(d));
 const ratioTxt=r=>isNaN(r)?'—':r===Infinity?L('solo nelle roccaforti'):'×'+r.toLocaleString(LOC(),{maximumFractionDigits:r>=10?0:1,minimumFractionDigits:r>=10?0:1});
-function ratioSentence(S){const r=S.ratio;if(isNaN(r))return '';if(r===Infinity)return Lf('Nelle province deboli non chiede nulla.');if(S.lo.pc<1&&r>1)return Lf('Nelle province deboli chiede quasi nulla.');if(r>=1.15)return Lf('Nelle roccaforti chiede {0} volte tanto.','<b>'+r.toLocaleString(LOC(),{maximumFractionDigits:1})+'</b>');if(r<=1/1.15)return Lf('Nelle roccaforti chiede meno: {0} di quello che chiede dove è debole.','<b>'+Math.round(r*100)+'%</b>');return Lf('Più o meno la stessa cifra nei due gruppi.')}
+function ratioSentence(S){const r=S.ratio;if(isNaN(r))return '';if(r===Infinity)return Lf('Nelle province deboli non chiede nulla.');if(S.lo.pc<1&&r>1)return Lf('Nelle province deboli chiede quasi nulla.');if(r>=10)return Lf('Nelle roccaforti chiede più di dieci volte tanto.');if(r>=1.15)return Lf('Nelle roccaforti chiede {0} volte tanto.','<b>'+r.toLocaleString(LOC(),{maximumFractionDigits:1})+'</b>');if(r<=1/1.15)return Lf('Nelle roccaforti chiede meno: {0} di quello che chiede dove è debole.','<b>'+Math.round(r*100)+'%</b>');return Lf('Più o meno la stessa cifra nei due gruppi.')}
 function vSentence(lab,S){return Lf('Dove {0} ha preso più voti nel 2022 (dal {1} in su) i suoi parlamentari chiedono {2} per abitante; dove ne ha presi meno (fino al {3}) ne chiedono {4}.','<b>'+esc(lab)+'</b>',pct1(S.hi.shMin),'<b>'+pcF(S.hi.pc)+'</b>',pct1(S.lo.shMax),'<b>'+pcF(S.lo.pc)+'</b>')+' '+ratioSentence(S)}
 function vSteps(g,S){const lab='<b>'+esc(g.lab)+'</b>';const nm=S.n-S.hi.k-S.lo.k;
   return '<h4>'+Lf('Come è costruito il confronto, con l’esempio di {0}',lab)+'</h4><ol>'+
@@ -1123,11 +1119,24 @@ function renderQuadro(){
   const apr=D.filter(r=>r.o==='A');hb('#qcoal',CO.map(c=>[c,apr.filter(r=>r.c===c).length]),v=>nf(v));
   hb('#qrate',['Maggioranza','Opposizione'].map(c=>[c,rate(x=>x===c)]),v=>pf(v)+'%');
   // partiti
-  const ys=SELY().filter(y=>D.some(r=>r.y===y));const GS=ORDER.filter(g=>D.some(r=>r.g===g));
-  $('#qparty').innerHTML='<thead><tr><th>Partito</th>'+ys.map(y=>`<th style="text-align:right">${y}</th>`).join('')+'<th style="text-align:right">Totale</th></tr></thead><tbody>'+
-    GS.map(g=>{const x=D.filter(r=>r.g===g);const cell=a=>`<td class="n">${nf(a.length)} · <b>${nf(a.filter(r=>r.o==='A').length)}</b></td>`;return `<tr><td><button class="who" type="button" data-qg="${esc(g)}">${esc(g)}</button></td>${ys.map(y=>cell(x.filter(r=>r.y===y))).join('')}${cell(x)}</tr>`}).join('')+'</tbody>';
-  document.querySelectorAll('[data-qg]').forEach(b=>b.onclick=()=>setOnly({fg:b.dataset.qg,fo:'A'}));
+  renderQParty();
 }
+let QPS='n',QPD=-1;
+function renderQParty(){if(!D)return;
+  if(!renderQParty._b){renderQParty._b=1;$('#qps').onchange=()=>{QPS=$('#qps').value;QPD=QPS==='g'?1:-1;renderQParty()};$('#qpy').onchange=()=>renderQParty()}
+  const ys=SELY().filter(y=>D.some(r=>r.y===y));const GS=ORDER.filter(g=>D.some(r=>r.g===g));const yv=$('#qpy').value;
+  const st=a=>{const n=a.length,ap=a.filter(r=>r.o==='A').length,ia=a.filter(r=>r.s!=='Ammissibile').length,lo=a.filter(r=>r.loc);return {n,ap,ia,pap:n?ap/n*100:NaN,pia:n?ia/n*100:NaN,pam:n?(n-ia)/n*100:NaN,lo:lo.length,plo:n?lo.length/n*100:NaN,eur:lo.reduce((x,r)=>x+AMT(r),0)}};
+  const T=GS.map(g=>{const x=D.filter(r=>r.g===g);return {g,S:st(x),Y:ys.map(y=>st(x.filter(r=>r.y===y)))}});
+  const key=o=>o.S[QPS];T.sort((a,b)=>QPS==='g'?(ORDER.indexOf(a.g)-ORDER.indexOf(b.g))*-QPD:((isNaN(key(b))?-1:key(b))-(isNaN(key(a))?-1:key(a)))*-QPD||b.S.n-a.S.n);
+  const p1=v=>isNaN(v)?'—':pf(v)+'%';
+  const ycell=Y=>yv==='none'?'':yv==='pap'?`<td class="n">${Y.n?p1(Y.pap):'—'}</td>`:yv==='pia'?`<td class="n">${Y.n?p1(Y.pia):'—'}</td>`:`<td class="n">${nf(Y.n)} · <b>${nf(Y.ap)}</b></td>`;
+  const th=(k,lab,al)=>`<th data-qs="${k}" class="qs${QPS===k?' on':''}" style="text-align:${al||'right'};cursor:pointer" aria-sort="${QPS===k?(QPD<0?'descending':'ascending'):'none'}">${lab}</th>`;
+  $('#qparty').innerHTML='<thead><tr>'+th('g','Partito','left')+(yv==='none'?'':ys.map(y=>`<th style="text-align:right">${y}</th>`).join(''))+th('n','Proposte')+th('pap','Approvate')+th('pia','Inammissibili')+th('plo','Per un solo territorio')+th('eur','Euro chiesti per territori')+'</tr></thead><tbody>'+
+    T.map(({g,S,Y})=>`<tr><td style="white-space:nowrap"><i class="qdot" style="background:${PCOL[g]||'var(--muted)'}"></i><button class="who" type="button" data-qg="${esc(g)}">${esc(g)}</button></td>${Y.map(ycell).join('')}<td class="n"><b>${nf(S.n)}</b></td><td class="n">${nf(S.ap)} <span class="meta">${p1(S.pap)}</span></td><td class="n">${nf(S.ia)} <span class="meta">${p1(S.pia)}</span></td><td class="n">${nf(S.lo)} <span class="meta">${p1(S.plo)}</span></td><td class="n">${fmtE(S.eur)}</td></tr>`).join('')+'</tbody>';
+  document.querySelectorAll('[data-qg]').forEach(b=>b.onclick=()=>setOnly({fg:b.dataset.qg,fo:'A'}));
+  document.querySelectorAll('#qparty th[data-qs]').forEach(h=>h.onclick=()=>{const k=h.dataset.qs;if(QPS===k)QPD=-QPD;else{QPS=k;QPD=k==='g'?1:-1}$('#qps').value=QPS;renderQParty()});
+}
+
 function coefPlot(svg,items,lab){svg.innerHTML='';const W=640,ml=150,mr=20,mt=12,mb=34,rh=34,NR=items.reduce((m,d,i)=>Math.max(m,(d.row??i)+1),0),H=mt+mb+rh*NR;svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
   const lo=Math.min(-5,...items.map(d=>d.b-1.96*d.se)),hi=Math.max(5,...items.map(d=>d.b+1.96*d.se));const X=v=>ml+(v-lo)/(hi-lo)*(W-ml-mr);
   const step=(hi-lo)>60?20:(hi-lo)>25?10:5;for(let t=Math.ceil(lo/step)*step;t<=hi;t+=step){const l=svgEl(svg,'line',{x1:X(t),x2:X(t),y1:mt,y2:H-mb,class:t===0?'ax':'gr'});if(t===0)l.style.stroke='var(--fg)';svgEl(svg,'text',{x:X(t),y:H-mb+15,'text-anchor':'middle'},pf(t,0))}
@@ -1135,47 +1144,46 @@ function coefPlot(svg,items,lab){svg.innerHTML='';const W=640,ml=150,mr=20,mt=12
   items.forEach((d,i)=>{const yy=mt+(d.row??i)*rh+rh/2+(d.dy||0);const c=d.col||'var(--accent)';const l=svgEl(svg,'line',{x1:X(d.b-1.96*d.se),x2:X(d.b+1.96*d.se),y1:yy,y2:yy,'stroke-width':2});l.style.stroke=c;
     const ci=svgEl(svg,'circle',{cx:X(d.b),cy:yy,r:5,'stroke-width':2});ci.style.stroke=c;ci.style.fill=d.hollow?'var(--surface)':c;svgEl(ci,'title',{},`${d.t}: ${pf(d.b)} (e.s. ${pf(d.se)})`);
     if(d.lab)svgEl(svg,'text',{x:0,y:yy+4,class:'lab'},d.lab)})}
+let PANEL=null,panLoading=false;
+const MAJ_P=['FdI','Lega','FI','Noi Moderati'];
+function quintStats(){const ys=SELY();const by={};PANEL.rows.forEach(r=>{(by[r[2]]=by[r[2]]||{})[r[0]]=r[4]});
+  const qOf={};for(const g in by){const ps=Object.keys(by[g]).sort((a,b)=>by[g][a]-by[g][b]);ps.forEach((p,i)=>{qOf[g+'|'+p]=Math.min(4,Math.floor(i*5/ps.length))})}
+  const A={maj:[0,0,0,0,0].map(()=>[0,0]),opp:[0,0,0,0,0].map(()=>[0,0]),all:[0,0,0,0,0].map(()=>[0,0])};let n=0;
+  PANEL.rows.forEach(r=>{if(!ys.includes(r[3]))return;const q=qOf[r[2]+'|'+r[0]];const k=MAJ_P.includes(r[2])?'maj':'opp';[k,'all'].forEach(z=>{A[z][q][0]+=r[5];A[z][q][1]++});n++});
+  const pc=x=>x[1]?x[0]/x[1]*100:NaN;return {maj:A.maj.map(pc),opp:A.opp.map(pc),all:A.all.map(pc),n}}
+function descPlot(Q){const s=$('#adesc');s.innerHTML='';const W=640,H=300,ml=46,mr=12,mt=26,mb=40;const mx=Math.max(5,...Q.maj,...Q.opp)*1.15;const Y=v=>mt+(1-v/mx)*(H-mt-mb);const gw=(W-ml-mr)/5,bw=gw*0.32;
+  const step=mx>40?10:5;for(let t=0;t<=mx;t+=step){svgEl(s,'line',{x1:ml,x2:W-mr,y1:Y(t),y2:Y(t),class:t===0?'ax':'gr'});svgEl(s,'text',{x:ml-6,y:Y(t)+4,'text-anchor':'end'},pf(t,0)+'%')}
+  const labs=['quinto più debole','2°','3°','4°','quinto più forte'];
+  [['maj','#2b5d9c','Partiti di maggioranza'],['opp','#c0392b','Partiti di opposizione']].forEach(([k,c,lab],j)=>{Q[k].forEach((v,q)=>{if(isNaN(v))return;const x=ml+q*gw+gw/2+(j?2:-2-bw);const r=svgEl(s,'rect',{x,y:Y(v),width:bw,height:Math.max(1,Y(0)-Y(v)),rx:3});r.style.fill=c;svgEl(r,'title',{},lab+': '+pf(v)+'%');svgEl(s,'text',{x:x+bw/2,y:Y(v)-4,'text-anchor':'middle',class:'vlab'},pf(v,0)+'%')})});
+  labs.forEach((l,q)=>svgEl(s,'text',{x:ml+q*gw+gw/2,y:H-mb+16,'text-anchor':'middle'},(q===0||q===4)?L(l):l));
+  svgEl(s,'text',{x:(ml+W-mr)/2,y:H-mb+34,'text-anchor':'middle'},L('quinto di province secondo i voti 2022 del partito'));
+  const lg=[['#2b5d9c','Partiti di maggioranza'],['#c0392b','Partiti di opposizione']];lg.forEach(([c,t],k)=>{const x=ml+8+k*210;const r=svgEl(s,'rect',{x,y:2,width:11,height:11,rx:2});r.style.fill=c;svgEl(s,'text',{x:x+16,y:12},L(t))})}
 function renderAnalisi(){
-  if(!AN){if(anLoading)return;anLoading=true;fetch('analisi_multi.json').then(r=>r.json()).then(j=>{AN=j;anLoading=false;renderAnalisi()}).catch(()=>{anLoading=false;$('#abrief').textContent='Non riesco a caricare i risultati.'});return}
-  const K=PA+'-'+PB,Q=AN.ranges[K];if(!Q)return;const P=Q.pooled,Wn=Q.within,Ap=Q.approved,A=Q.approval;
-  const sig=m=>Math.abs(m.b/m.se)>1.96;const many=PA!==PB;const PL=perLab();
-  $('#aper').textContent=PL;
-  $('#ah2').textContent=(PL[0].toUpperCase()+PL.slice(1))+(sig(Wn)?': il voto del 2022 conta anche dentro la stessa regione':': i partiti chiedono dove sono forti, ma tra regioni');
-  let h=`<ol><li><b>Dove un partito ha preso più voti nel 2022, chiede più spesso soldi per quella provincia.</b> Con 10 punti di voto in più la probabilità sale di ${pf(P.b)} punti percentuali (errore standard ${pf(P.se)}), su una media del ${pf(P.mean)}%.</li>`;
-  h+=sig(Wn)?`<li><b>Il legame regge confrontando solo province della stessa regione</b> per lo stesso partito: ${pf(Wn.b)} punti (e.s. ${pf(Wn.se)}). Non è solo una questione di Nord e Sud.</li>`:`<li><b>Confrontando solo province della stessa regione la stima non è distinguibile da zero</b>: ${pf(Wn.b)} punti (e.s. ${pf(Wn.se)}). ${many?'In questo periodo':'In questa manovra'} il legame si vede con sicurezza solo tra regioni.</li>`;
-  h+=Ap?`<li><b>Le richieste approvate seguono la stessa geografia</b>${sig(Ap)?'':', ma la stima è incerta'}: ${pf(Ap.b,2)} punti (e.s. ${pf(Ap.se,2)}) su una media dell’${pf(Ap.mean)}%.</li>`:`<li><b>Nessuna stima sulle approvate</b>: ${PA===2027?'la manovra 2027 non è ancora stata votata.':'troppo poche richieste locali approvate nel periodo.'}</li>`;
-  if(A)h+=`<li><b>Essere in maggioranza conta più del territorio.</b> Una proposta dell’opposizione passa nel ${pf(A.base)}% dei casi; la maggioranza ha ${pf(A.mag.b)} punti in più (e.s. ${pf(A.mag.se)}).</li>`;
-  h+='</ol>';if(PA<=2023&&PB>=2027&&AN.ranges['2027-2027'])h+=`<p class="meta">Con la sola manovra 2027 il confronto dentro la regione dà ${pf(AN.ranges['2027-2027'].within.b)} punti (e.s. ${pf(AN.ranges['2027-2027'].within.se)}): scegli «2027» nel periodo per vederlo.</p>`;
-  $('#abrief').innerHTML=h;
-  const M=AN.models,it=[];SELY().forEach((y,i)=>{it.push({row:i,t:y+' tutta Italia',b:M.by_year[y].b,se:M.by_year[y].se,dy:-7,lab:'Manovra '+y},{row:i,t:y+' stessa regione',b:M.by_year_within[y].b,se:M.by_year_within[y].se,dy:7,hollow:1})});
-  coefPlot($('#afig'),it,'punti percentuali per +10 punti di voto');
+  if(!AN||!PANEL){if(anLoading)return;anLoading=true;Promise.all([AN?AN:fetch('analisi_multi.json').then(r=>r.json()),PANEL?PANEL:fetch('panel_multi.json').then(r=>r.json())]).then(([a,p])=>{AN=a;PANEL=p;anLoading=false;renderAnalisi()}).catch(()=>{anLoading=false;$('#abrief').textContent='Non riesco a caricare i risultati.'});return}
+  const K=PA+'-'+PB,Q=AN.ranges[K];if(!Q)return;const P=Q.pooled,Wn=Q.within,A=Q.approval;
+  const sig=m=>Math.abs(m.b/m.se)>1.96;const PL=perLab();$('#aper').textContent=PL;$('#aper2').textContent=PL;
+  const D5=quintStats();$('#anobs').textContent=Lf('{0} (109 province × 8 partiti × {1})',nf(D5.n),SELY().length===1?L('1 manovra'):Lf('{0} manovre',SELY().length));
+  descPlot(D5);
+  const a=D5.all;$('#adescp').textContent=Lf('In media, nel quinto di province dove il partito è più forte c’è una richiesta nel {0}% dei casi, nel quinto dove è più debole nel {1}%. La differenza è più marcata per l’opposizione ({2}% contro {3}%) che per la maggioranza ({4}% contro {5}%).',pf(a[4]),pf(a[0]),pf(D5.opp[4]),pf(D5.opp[0]),pf(D5.maj[4]),pf(D5.maj[0]));
+  let h='<ol>'+'<li>'+Lf('<b>Dove un partito è più forte, chiede più spesso soldi per quella provincia:</b> {0}% dei casi nel quinto di province più favorevole, {1}% in quello meno favorevole.',pf(a[4]),pf(a[0]))+'</li>';
+  h+='<li>'+(sig(Wn)?Lf('<b>Il legame resta confrontando province della stessa regione</b> per lo stesso partito, ma è più piccolo: {0} punti per 10 punti di voto, contro {1} nel confronto tra tutte le province.',pf(Wn.b),pf(P.b)):Lf('<b>Confrontando solo province della stessa regione il legame si riduce e non è più distinguibile dal caso</b> ({0} punti, errore standard {1}): buona parte del legame è una differenza tra regioni.',pf(Wn.b),pf(Wn.se)))+'</li>';
+  if(A)h+='<li>'+Lf('<b>Per far approvare una proposta conta soprattutto chi la firma.</b> Una proposta dell’opposizione passa nel {0}% dei casi; una della maggioranza ha {1} punti in più.',pf(A.base),pf(A.mag.b))+'</li>';
+  h+='</ol>';$('#abrief').innerHTML=h;
   const cell=m=>m?`<td>${pf(m.b,2)}${stars(m.b,m.se)}</td>`:'<td>—</td>',cse=m=>m?`<td>(${pf(m.se,2)})</td>`:'<td></td>';
-  const yl=PA===PB?String(PA):PA+'–'+String(PB).slice(2);const apy=Ap?(PA===Math.min(PB,2026)?String(PA):PA+'–'+String(Math.min(PB,2026)).slice(2)):'—';
-  $('#atab').innerHTML=`<thead><tr><th></th><th>(1)</th><th>(2)</th><th>(3)</th><th>(4)</th></tr><tr><th>Variabile dipendente</th><th>Richiesta 0/1</th><th>Richiesta 0/1</th><th>Richiesta 0/1</th><th>Approvata 0/1</th></tr></thead><tbody>
-  <tr><td>Voti 2022 (+10 punti)</td>${cell(Q.nofe)}${cell(P)}${cell(Wn)}${cell(Ap)}</tr><tr class="se"><td></td>${cse(Q.nofe)}${cse(P)}${cse(Wn)}${cse(Ap)}</tr>
-  <tr class="sep"><td>Effetti fissi partito × manovra</td><td>Sì</td><td>Sì</td><td>Sì</td><td>Sì</td></tr>
-  <tr><td>Effetti fissi regione</td><td>No</td><td>Sì</td><td>—</td><td>Sì</td></tr>
-  <tr><td>Effetti fissi partito × regione</td><td>No</td><td>No</td><td>Sì</td><td>No</td></tr>
-  <tr><td>Manovre</td><td>${yl}</td><td>${yl}</td><td>${yl}</td><td>${apy}</td></tr>
-  <tr class="sep"><td>Media var. dipendente (%)</td><td>${pf(Q.nofe.mean)}</td><td>${pf(P.mean)}</td><td>${pf(Wn.mean)}</td><td>${Ap?pf(Ap.mean):'—'}</td></tr>
-  <tr><td>Osservazioni · cluster</td><td>${nf(Q.nofe.n)} · ${Q.nofe.g}</td><td>${nf(P.n)} · ${P.g}</td><td>${nf(Wn.n)} · ${Wn.g}</td><td>${Ap?nf(Ap.n)+' · '+Ap.g:'—'}</td></tr></tbody>`;
-  $('#anote').textContent=`Modello lineare di probabilità. Unità: provincia × partito × manovra; ${AN.nprov} province (esclusa la Valle d’Aosta) × 8 partiti × ${SELY().length} ${SELY().length>1?'manovre':'manovra'}${PRA?' (le stime usano sempre entrambi i rami)':''}. Richiesta = almeno una proposta del partito (primo firmatario) che nomina la provincia. Colonna (4): richiesta approvata, solo prime letture già votate. Errori standard a cluster per provincia. *** p<0,01; ** p<0,05; * p<0,1.`;
-  $('#aptab').innerHTML=A?`<thead><tr><th>Variabile</th><th>Coefficiente (punti %)</th><th>Errore standard</th></tr></thead><tbody>
-  <tr><td>Primo firmatario in maggioranza</td><td>${pf(A.mag.b,2)}${stars(A.mag.b,A.mag.se)}</td><td>${pf(A.mag.se,2)}</td></tr>
-  <tr><td>Proposta per un solo territorio</td><td>${pf(A.loc.b,2)}${stars(A.loc.b,A.loc.se)}</td><td>${pf(A.loc.se,2)}</td></tr>
-  <tr><td>Maggioranza × territorio</td><td>${pf(A.magloc.b,2)}${stars(A.magloc.b,A.magloc.se)}</td><td>${pf(A.magloc.se,2)}</td></tr>
-  <tr class="sep"><td>Tasso di base (opposizione, proposta non locale)</td><td>${pf(A.base,2)}%</td><td></td></tr>
-  <tr><td>Proposte · primi firmatari (cluster)</td><td>${nf(A.n)} · ${nf(A.g)}</td><td></td></tr></tbody>`:'<tbody><tr><td>Nessuna prima lettura già votata nel periodo scelto (la manovra 2027 non è ancora stata votata).</td></tr></tbody>';
-  // eterogeneità per partito
-  if(AN.het){const hs=ORDER.filter(g=>AN.het[g]).map(g=>({t:g,lab:g,b:AN.het[g].b,se:AN.het[g].se,col:PCOL[g]}));coefPlot($('#ahet'),hs,'punti percentuali per +10 punti di voto (intera legislatura)');
-    $('#ahetp').innerHTML=''+(AN.het_txt||'');$('#ahetf').hidden=false}else $('#ahetf').hidden=true;
-  // curva delle specificazioni
-  if(AN.spec&&AN.spec.length){const S=AN.spec.slice().sort((a,b)=>a.b-b.b);$('#aspn').textContent=nf(S.length);const s=$('#aspec');s.innerHTML='';const W=640,H=260,ml=40,mr=10,mt=10,mb=30;
-    const lo=Math.min(0,...S.map(d=>d.b-1.96*d.se)),hi=Math.max(...S.map(d=>d.b+1.96*d.se));const Y=v=>mt+(hi-v)/(hi-lo)*(H-mt-mb),X=i=>ml+(i+.5)/S.length*(W-ml-mr);
-    for(let t=Math.ceil(lo/5)*5;t<=hi;t+=5){const l=svgEl(s,'line',{x1:ml,x2:W-mr,y1:Y(t),y2:Y(t),class:t===0?'ax':'gr'});if(t===0)l.style.stroke='var(--fg)';svgEl(s,'text',{x:ml-6,y:Y(t)+4,'text-anchor':'end'},pf(t,0))}
-    S.forEach((d,i)=>{const sg=Math.abs(d.b/d.se)>1.96;const l=svgEl(s,'line',{x1:X(i),x2:X(i),y1:Y(d.b-1.96*d.se),y2:Y(d.b+1.96*d.se)});l.style.stroke='var(--line)';const c=svgEl(s,'circle',{cx:X(i),cy:Y(d.b),r:2.6});c.style.fill=sg?'var(--accent)':'var(--surface)';c.style.stroke='var(--accent)';svgEl(c,'title',{},d.lab+': '+pf(d.b)+' (e.s. '+pf(d.se)+')')});
-    svgEl(s,'text',{x:(ml+W-mr)/2,y:H-6,'text-anchor':'middle'},'specificazioni, dalla stima più bassa alla più alta');
-    const pos=S.filter(d=>d.b>0).length,sgp=S.filter(d=>d.b/d.se>1.96).length;$('#aspecp').innerHTML=`Su ${nf(S.length)} modi ragionevoli di fare il conto, ${nf(pos)} danno un legame positivo e ${nf(sgp)} positivo e significativo. La mediana è ${pf(S[Math.floor(S.length/2)].b)} punti. ${AN.spec_txt||''}`;$('#aspecf').hidden=false}
+  $('#atab').innerHTML=`<thead><tr><th></th><th>(1)</th><th>(2)</th><th>(3)</th></tr><tr><th>Confronto</th><th>${L('Tutte le province')}</th><th>${L('Province della stessa regione')}</th><th>${L('Stessa regione, stesso partito')}</th></tr></thead><tbody>
+  <tr><td>${L('Voti 2022 (+10 punti)')}</td>${cell(Q.nofe)}${cell(P)}${cell(Wn)}</tr><tr class="se"><td></td>${cse(Q.nofe)}${cse(P)}${cse(Wn)}</tr>
+  <tr class="sep"><td>${L('Effetti fissi')}</td><td>${L('partito × manovra')}</td><td>${L('+ regione')}</td><td>${L('+ partito × regione')}</td></tr>
+  <tr><td>${L('Media delle richieste (%)')}</td><td>${pf(Q.nofe.mean)}</td><td>${pf(P.mean)}</td><td>${pf(Wn.mean)}</td></tr>
+  <tr><td>${L('Osservazioni · province')}</td><td>${nf(Q.nofe.n)} · ${Q.nofe.g}</td><td>${nf(P.n)} · ${P.g}</td><td>${nf(Wn.n)} · ${Wn.g}</td></tr></tbody>`;
+  $('#anote').textContent=L('* p<0,05; ** p<0,01; *** p<0,001. La colonna 3 è la più prudente: confronta solo province della stessa regione per lo stesso partito.');
+  $('#aptab').innerHTML=A?`<thead><tr><th></th><th>${L('Punti percentuali')}</th><th>${L('Errore standard')}</th></tr></thead><tbody>
+  <tr><td>${L('Tasso di approvazione dell’opposizione')}</td><td>${pf(A.base,1)}%</td><td></td></tr>
+  <tr><td>${L('Primo firmatario in maggioranza')}</td><td>+${pf(A.mag.b,1)}${stars(A.mag.b,A.mag.se)}</td><td>${pf(A.mag.se,1)}</td></tr>
+  <tr><td>${L('Proposta per un solo territorio')}</td><td>${A.loc.b>=0?'+':''}${pf(A.loc.b,1)}${stars(A.loc.b,A.loc.se)}</td><td>${pf(A.loc.se,1)}</td></tr>
+  <tr><td>${L('Proposte · primi firmatari')}</td><td>${nf(A.n)} · ${nf(A.g)}</td><td></td></tr></tbody>`:'<tbody><tr><td>'+L('Nessuna prima lettura già votata nel periodo scelto (la manovra 2027 non è ancora stata votata).')+'</td></tr></tbody>';
+  if(AN.het){const hs=ORDER.filter(g=>AN.het[g]).map(g=>({t:g,lab:g,b:AN.het[g].b,se:AN.het[g].se,col:PCOL[g]}));coefPlot($('#ahet'),hs,L('punti percentuali per +10 punti di voto (intera legislatura)'));
+    $('#ahetp').textContent=L(AN.het_txt||'');$('#ahetf').hidden=false}else $('#ahetf').hidden=true;
+  if(AN.spec&&AN.spec.length){const S=AN.spec;const pos=S.filter(d=>d.b>0).length,sg=S.filter(d=>d.b/d.se>1.96).length;$('#arob').textContent=Lf('Rifacendo il conto in {0} modi diversi (campione, definizione di richiesta, confronto, misura del voto), {1} stime su {0} sono positive e {2} significative.',nf(S.length),nf(pos),nf(sg))}
   renderFonti();
 }
 $('#pcsv').onclick=async()=>{const m=$('#pcsvm');try{const P=await (await fetch('panel_multi.json')).json();const cell=v=>typeof v==='number'?String(v).replace('.',','):'"'+String(v).replace(/"/g,'""')+'"';const csv='﻿'+[P.cols.map(cell).join(';')].concat(P.rows.map(r=>r.map(cell).join(';'))).join('\r\n');
