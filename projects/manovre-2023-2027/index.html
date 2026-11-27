@@ -295,6 +295,7 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
 .period .pf{display:inline-flex;gap:6px;align-items:center;font-size:13px;color:var(--muted)}.period select{padding:4px 6px}
 .pnote{font-size:12.5px;color:var(--muted)}
 .qgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}@media (max-width:860px){.qgrid{grid-template-columns:minmax(0,1fr)}}
+#qmtab tr.co td{font-weight:600;background:var(--surface-2)}#qmtab tr.pa td:first-child{padding-left:26px}#qmtab tr.tot td{font-weight:700;border-top:2px solid var(--fg)}.qmbar{display:inline-block;width:70px;height:7px;background:var(--surface-2);border-radius:4px;margin-left:8px;vertical-align:middle;overflow:hidden}.qmbar i{display:block;height:100%}.qmtop{margin:6px 0 0;padding-left:22px;font-size:13.5px;line-height:1.5}.qmtop li{margin:3px 0}
 .qdot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:middle}.qpctl{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 10px}#qparty th.qs:hover{color:var(--accent)}#qparty th.on{color:var(--accent)}
 .qbars text{fill:var(--muted);font-size:11px}.qbars .lab{fill:var(--fg);font-size:12px}
 .chip.st-ap{background:var(--ok);color:var(--bg)}
@@ -321,7 +322,7 @@ td.amt{text-align:right;font-family:var(--f-mono);font-size:12.5px;white-space:n
   <section class="tiles" id="qtiles" aria-label="Riepilogo"></section>
   <section class="panel"><h2>Quante proposte, e che fine hanno fatto</h2><p class="sub">Proposte presentate nella commissione Bilancio di ciascuna Camera, per esito. La prima lettura è quella in cui la manovra si cambia davvero; in seconda lettura il testo arriva «blindato» e non passa nessuna modifica (²).</p><div class="legend"><span><i class="sw" style="background:var(--ok)"></i>Approvata</span><span><i class="sw c-bad"></i>Inammissibile</span><span><i class="sw c-warn"></i>Ritirata</span><span><i class="sw" style="background:var(--line)"></i>Respinta, decaduta o non votata</span></div><div class="tablewrap"><svg id="qbars" class="qbars" viewBox="0 0 900 330" style="width:100%;min-width:620px;height:auto" role="img" aria-label="Proposte per manovra, ramo ed esito"></svg></div><div class="tablewrap"><table class="rank" id="qtab"></table></div><p class="sub">Il 2023 alla Camera conta solo le proposte <b>segnalate</b> dai gruppi (1.043): nel dicembre 2022 la Camera non ha pubblicato i testi di tutte le circa 3.000 presentate. La manovra 2027 non è ancora stata votata in commissione.</p></section>
   <section class="qgrid"><div class="panel"><h2>Chi firma le proposte approvate</h2><p class="sub">Proposte approvate, per schieramento del primo firmatario.</p><svg id="qcoal" class="qbars" viewBox="0 0 520 210" style="width:100%;height:auto"></svg></div><div class="panel"><h2>Quanto conviene essere in maggioranza</h2><p class="sub">Quota di proposte approvate sul totale presentato dallo schieramento, prime letture già votate.</p><svg id="qrate" class="qbars" viewBox="0 0 520 210" style="width:100%;height:auto"></svg></div></section>
-  <section class="panel"><h2>Partito per partito</h2><p class="sub">Primo firmatario, gruppo alla data della manovra. Le percentuali sono sul totale delle proposte del partito nel periodo; la manovra 2027 non è ancora stata votata, quindi non ha approvate. Clicca un titolo di colonna per ordinare, un partito per vedere le sue proposte approvate nell’elenco.</p><div class="qpctl"><div class="f"><label for="qps">Ordina per</label><select id="qps"><option value="n">Proposte presentate</option><option value="pap">% approvate</option><option value="pia">% inammissibili</option><option value="pam">% ammissibili</option><option value="plo">% per un solo territorio</option><option value="eur">Euro chiesti per territori</option><option value="g">Ordine dei partiti</option></select></div><div class="f"><label for="qpy">Colonne per anno</label><select id="qpy"><option value="np">Presentate · approvate</option><option value="pap">% approvate</option><option value="pia">% inammissibili</option><option value="none">Nascondi</option></select></div></div><div class="tablewrap"><table class="rank" id="qparty"></table></div></section>
+  <section class="panel"><h2>Partito per partito</h2><p class="sub">Primo firmatario, gruppo alla data della manovra. Le percentuali sono sul totale delle proposte del partito nel periodo; la manovra 2027 non è ancora stata votata, quindi non ha approvate. Clicca un titolo di colonna per ordinare, un partito per vedere le sue proposte approvate nell’elenco.</p><div class="qpctl"><div class="f"><label for="qps">Ordina per</label><select id="qps"><option value="n">Proposte presentate</option><option value="pap">% approvate</option><option value="pia">% inammissibili</option><option value="pam">% ammissibili</option><option value="plo">% per un solo territorio</option><option value="eur">Euro chiesti per territori</option><option value="g">Ordine dei partiti</option></select></div><div class="f"><label for="qpy">Colonne per anno</label><select id="qpy"><option value="np">Presentate · approvate</option><option value="pap">% approvate</option><option value="pia">% inammissibili</option><option value="none">Nascondi</option></select></div></div><div class="tablewrap"><table class="rank" id="qparty"></table></div></section><section class="panel" id="qmoney"><h2>Quanto chiedono le proposte</h2><p class="sub">Tutte le proposte, nazionali e locali, con un’unica regola: conta il costo nei tre anni coperti da ciascuna manovra (l’anno della manovra e i due successivi). Si usa il costo dichiarato dal proponente nella clausola di copertura («Agli oneri…, pari a…»), altrimenti la spesa scritta nel testo con i suoi anni; se la proposta cambia una cifra già in legge, conta solo l’aumento. Una cifra di cui il testo non dice gli anni non entra nelle somme. Le cifre sono lette in automatico: prima di citarne una, apri la scheda ufficiale.</p><p class="sub">Attenzione a cosa misura il totale: è la somma di tutto ciò che è stato chiesto, non una contromanovra. Lo stesso partito presenta spesso più varianti della stessa misura, la stessa proposta torna alla Camera e al Senato e gran parte delle proposte è respinta o inammissibile: le cifre si sommano anche quando si escludono a vicenda. Per confronti tra partiti conta più la quota che il totale.</p><div class="qpctl"><div class="f"><label for="qme">Esito</label><select id="qme"><option value="">Tutte le proposte</option><option value="A">Approvate</option><option value="M">Ammissibili</option><option value="I">Inammissibili</option></select></div><div class="f"><label for="qmd">Proposte identiche</label><select id="qmd"><option value="">Ognuna conta</option><option value="1">Contate una volta sola</option></select></div></div><div class="tablewrap"><table class="rank" id="qmtab"></table></div><p class="sub notr" id="qmchk"></p><h3 class="vh3">Le proposte che chiedono di più</h3><ol class="qmtop notr" id="qmtop"></ol></section>
 </div>
 <div id="view-elenco" class="view">
   <section class="tiles" id="tiles" aria-label="Riepilogo"></section>
@@ -542,10 +543,10 @@ const TX={},TXL={};function txt(r){if(TX[r.y])return TX[r.y][r.x];if(!TXL[r.y])T
 let ALL=null,PA=2023,PB=2027,PRA='';const YEARS=[2023,2024,2025,2026,2027];
 const perLab=()=>(PA===PB?'manovra '+PA:(PA===2023&&PB===2027?'2023–2027, intera legislatura':'manovre '+PA+'–'+PB))+(PRA?' · '+PRA:'');
 const MAG=new Set(['FdI','Lega','FI','Noi Moderati']);
-const ORDER=['FdI','Lega','FI','Noi Moderati','PD','M5S','AVS','Azione / IV','Autonomie','Misto','Governo'];
+const ORDER=['FdI','Lega','FI','Noi Moderati','PD','M5S','AVS','Azione / IV','Autonomie','Misto','Governo e relatori'];
 let D=null,T=null,filtered=[],shown=100,sortK='i',sortDir=1,openId=null;
 const st={g:'',p:''};
-const fmtE=v=>(v==null||v===0)?'—':(v>=1e9?(v/1e9).toLocaleString(LOC(),{maximumFractionDigits:2})+U('mld'):(v>=1e6?(v/1e6).toLocaleString(LOC(),{maximumFractionDigits:2})+U('mln'):Math.round(v/1e3).toLocaleString(LOC())+U('kn')));
+const fmtE=v=>(v==null||v===0)?'—':(v>=1e9?(v/1e9).toLocaleString(LOC(),{maximumFractionDigits:v>=1e11?0:v>=1e10?1:2,useGrouping:'always'})+U('mld'):(v>=1e6?(v/1e6).toLocaleString(LOC(),{maximumFractionDigits:2})+U('mln'):Math.round(v/1e3).toLocaleString(LOC())+U('kn')));
 const LANGS={it:'it-IT',en:'en-GB',es:'es-ES',fr:'fr-FR'};
 let LANG=(()=>{try{const q=new URLSearchParams(location.search).get('lang');if(q&&LANGS[q])return q;const s=localStorage.getItem('emb27-lang');if(s&&LANGS[s])return s}catch(e){}return 'it'})();
 const LOC=()=>LANGS[LANG];
@@ -554,7 +555,7 @@ const U=k=>UN[LANG][k];
 const nf=n=>n.toLocaleString(LOC());
 const pc=(a,b)=>b?(a/b*100).toLocaleString(LOC(),{maximumFractionDigits:1})+'%':'—';
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const gcls=g=>MAG.has(g)?'g-maj':((g==='Misto'||g==='Governo')?'g-mix':'g-opp');
+const gcls=g=>MAG.has(g)?'g-maj':((g==='Misto'||g==='Governo e relatori')?'g-mix':'g-opp');
 const scls=s=>s==='Ammissibile'?'st-ok':(s==='Compensazione'?'st-warn':'st-bad');
 const OLAB={A:'Approvato',N:'Respinto o non votato',R:'Ritirato',I:'Inammissibile'};
 const ochip=r=>r.s!=='Ammissibile'?`<span class="chip ${scls(r.s)}">${slbl(r.s,r.pz)}</span>`:(r.o==='A'?'<span class="chip st-ap">Approvato</span>':r.o==='R'?'<span class="chip st-warn">Ritirato</span>':(r.y===2027?'<span class="chip">In esame</span>':'<span class="chip">'+(r.le===2?'Seconda lettura, non approvato':'Non approvato')+'</span>'));
@@ -582,14 +583,14 @@ fetch('emendamenti.json').then(r=>r.json()).then(j=>{
   const C=j.cols;ALL=j.rows.map(a=>{const o={};C.forEach((k,i)=>o[k]=a[i]);o.pr=o.pm;o.d='';o.id_='';o.co='';if(o.f.length&&o.f[0][0]!==o.p&&o.p.startsWith(o.f[0][0]))o.f[0][0]=o.p;return o});D=ALL;
   D.forEach(r=>{r._k=String(r.y)+(r.ra==='Senato'?'S':'C')+numKey(r.i);r._s=(r.i+' '+r.t+' '+r.f.map(x=>x[0]).join(' ')+' '+r.l.join(' ')+' '+r.y+' '+r.ra).toLowerCase()});
   const groups=ORDER.filter(g=>D.some(r=>r.g===g));
-  opts($('#fg'),groups,'Tutti');opts($('#rg2'),groups.filter(g=>g!=='Governo'),'Tutti');opts($('#mg'),groups.filter(g=>g!=='Governo'),'Tutti');
+  opts($('#fg'),groups,'Tutti');opts($('#rg2'),groups.filter(g=>g!=='Governo e relatori'),'Tutti');opts($('#mg'),groups.filter(g=>g!=='Governo e relatori'),'Tutti');
   const themes=[...new Set(D.flatMap(r=>r.th))].sort();opts($('#ft'),themes,'Tutti');
   opts($('#fr'),[...new Set(D.flatMap(r=>r.rg))].sort(),'Tutte');
   opts($('#fp'),[...new Set(D.flatMap(r=>r.pr))].sort(),'Tutte');
   opts($('#fe'),[...new Set(D.map(r=>r.ce).filter(Boolean))].sort(),'Tutte');
   const arts=[...new Set(D.map(r=>r.a))].sort((a,b)=>{const n=s=>s==='Tabelle'?1e6:parseInt(s.replace(/\D+/g,''))*10+(s.includes('agg')?1:0);return n(a)-n(b)});
   opts($('#fa'),arts,'Tutti');
-  {const P={};D.forEach(r=>{r.f.forEach((x,ix)=>{if(x[0]==='Governo')return;const o=P[x[0]]||(P[x[0]]={n:x[0],g:x[1],p:0,c:0});if(ix===0&&r.p===x[0])o.p++;else o.c++})});
+  {const P={};D.forEach(r=>{r.f.forEach((x,ix)=>{if(x[0]==='Governo e relatori')return;const o=P[x[0]]||(P[x[0]]={n:x[0],g:x[1],p:0,c:0});if(ix===0&&r.p===x[0])o.p++;else o.c++})});
    DEPS=Object.values(P).sort((a,b)=>a.n.localeCompare(b.n,'it'));
    combo($('#fw'),()=>$('#fwm').value==='all'?DEPS:DEPS.filter(d=>d.p>0),d=>d.g+' · '+(($('#fwm').value==='all')?nf(d.p+d.c)+' firmati':nf(d.p)+' da primo firmatario'));
    combo($('#mdep'),()=>DEPS.filter(d=>d.p>0),d=>d.g+' · '+nf(d.p)+' da primo firmatario');}
@@ -671,7 +672,7 @@ function renderSummary(){
   const top=Object.entries(provCnt).sort((a,b)=>b[1]-a[1]).slice(0,12);const pm=Math.max(1,...top.map(x=>x[1]));const ps=val('fp');
   $('#provbars').innerHTML=top.length?top.map(([p,v])=>`<button class="bar${p===ps?' on':''}" data-p="${esc(p)}" type="button"><span class="lb">${esc(p)}</span><span class="tr"><i class="c-acc" style="width:${(v/pm*100).toFixed(2)}%"></i></span><span class="vl num">${v}</span></button>`).join(''):'<p class="sub">Nessun emendamento per un solo territorio nel filtro corrente.</p>';
   document.querySelectorAll('#provbars .bar').forEach(b=>b.onclick=()=>{const v=b.dataset.p;$('#fp').value=($('#fp').value===v?'':v);shown=100;apply()});
-  const sumAll=F.reduce((s,r)=>s+(r.big?0:(r.e3||r.e||0)),0);
+  const sumAll=F.reduce((s,r)=>s+AMT(r),0);
   $('#cnt').innerHTML=`${nf(n)} proposte <small>· somma dei costi triennali stimati: ${fmtE(sumAll)} (indicativa: proposte identiche si ripetono)</small>`;
 }
 
@@ -699,7 +700,7 @@ function detHTML(r){
    <dt>Firmatari</dt><dd>${firm}</dd>
    <dt>Eletto in</dt><dd>${esc(r.cf||r.ce||'—')}${r.u?' · uninominale '+esc(r.u):''}</dd>
    <dt>Territorio</dt><dd>${esc(r.l.join(', ')||'—')}${r.pr.length?'<div class="meta">Prov.: '+esc(r.pr.join(', '))+'</div>':''}${r.rg.length?'<div class="meta">Regioni: '+esc(r.rg.join(', '))+'</div>':''}</dd>
-   <dt>Importo</dt><dd>costo annuo ${fmtE(r.e)}${r.ey?' ('+esc(r.ey)+')':''} · costo nel triennio ${fmtE(r.e3)} <span class="meta">(stima automatica${r.big?'; esclusa dalle somme: riscrive uno stanziamento già previsto, senza chiedere soldi nuovi':''})</span></dd>
+   <dt>Importo</dt><dd>${!r.e3&&r.e?'cifra più alta nel testo '+fmtE(r.e)+' · costo nel triennio non attribuibile: il testo non dice a quali anni si riferisce, quindi non entra nelle somme':'costo annuo '+fmtE(r.e)+(r.ey?' ('+esc(r.ey)+')':'')+' · costo nel triennio '+fmtE(r.e3)} <span class="meta">(stima automatica${r.big?'; esclusa dalle somme: riscrive uno stanziamento già previsto, senza chiedere soldi nuovi':''})</span></dd>
    <dt>Portata</dt><dd>${esc(r.po)}</dd>
    <dt>Copertura</dt><dd>${esc(r.cv)} <span class="meta">(da clausola nel testo)</span></dd>
    <dt>Tema</dt><dd>${esc(r.th.join(', '))}</dd></dl>
@@ -726,16 +727,16 @@ function curRamp(){const g=rampParty();return g&&PCOL_L[g]?partyRamp(g):RAMP}
 const TH_SOLDI=[5e6,20e6,50e6,100e6,250e6,1e9],TH_N=[1,2,3,5,8,15],TH_PC=[10,50,100,250,500,1000];let POP=null;
 const PALIAS={'Sud Sardegna':'Sulcis Iglesiente'};
 let mapTopo=null,mapGeo=null,mapLoading=false,mapSel=null,mapAggC=null,mapAllList=false;
-function renderChips(){const box=$('#pchips');if(!box||!D)return;const gs=ORDER.filter(g=>g!=='Governo'&&D.some(r=>r.g===g));const cur=$('#mg').value;
+function renderChips(){const box=$('#pchips');if(!box||!D)return;const gs=ORDER.filter(g=>g!=='Governo e relatori'&&D.some(r=>r.g===g));const cur=$('#mg').value;
   box.innerHTML=`<button type="button" class="pchip" data-g="" aria-pressed="${!cur}">Tutti i partiti</button>`+gs.map(g=>`<button type="button" class="pchip" data-g="${esc(g)}" aria-pressed="${cur===g}"><i style="background:${PCOL[g]||'#888'}"></i>${esc(g)}</button>`).join('');
   box.querySelectorAll('.pchip').forEach(b=>b.onclick=()=>{$('#mg').value=b.dataset.g;if(b.dataset.g)$('#mmode').value='imp';mapSel=null;renderMap()})}
 function mapVal(o){const m=$('#mmis').value;return m==='n'?o.n:(m==='pc'?(POP&&POP[o.p]?o.soldi/POP[o.p]:0):o.soldi)}
 function fmtPC(v){return (v<10?v.toLocaleString(LOC(),{maximumFractionDigits:1}):Math.round(v).toLocaleString(LOC()))+U('pc')}
-const AMT=r=>r.big?0:(r.e3||r.e||0);  // grandi opere, Ponte sullo Stretto, rimodulazioni e richieste oltre 1 miliardo: escluse da tutte le somme
+const AMT=r=>r.big?0:(r.e3||0);  // regola unica: conta il costo nel triennio della manovra (anni scritti nel testo); una cifra senza anni non entra nelle somme
 function mapAgg(ov){ov=ov||{};
   const g=$('#mg').value,es=('es' in ov)?ov.es:$('#mes').value,dep=$('#mdep').value.trim().toLowerCase(),one=$('#mone').checked,po=$('#mpo').value;const P={};let tot=0,n=0;
   const K={all:0,nAll:0,single:0,nSingle:0,multi:0,nMulti:0,none:0,nNone:0,dep:!!dep};
-  D.forEach(r=>{if(r.g==='Governo')return;if(g&&r.g!==g)return;if(dep&&r.p.toLowerCase()!==dep)return;if(one&&r.f.length!==1)return;if(po==='1'&&r.pm.length!==1)return;if(po==='m'&&r.pm.length<2)return;
+  D.forEach(r=>{if(r.g==='Governo e relatori')return;if(g&&r.g!==g)return;if(dep&&r.p.toLowerCase()!==dep)return;if(one&&r.f.length!==1)return;if(po==='1'&&r.pm.length!==1)return;if(po==='m'&&r.pm.length<2)return;
     if(es==='AP'&&r.o!=='A')return;if(es==='A'&&r.s!=='Ammissibile')return;if(es==='I'&&r.s==='Ammissibile')return;if(es==='E'&&r.s!=='Estraneità di materia')return;
     const v=AMT(r);K.all+=v;K.nAll++;
     if(!r.pm||!r.pm.length){K.none+=v;K.nNone++;return}
@@ -770,7 +771,7 @@ function renderMap(){
     'par|pc':'Ogni provincia prende il colore del <b>gruppo che chiede più soldi</b>. Dividere per gli abitanti non cambia chi è primo, quindi la mappa è uguale a “Euro”: cambiano solo i numeri nella lista.',
     'par|n':'Ogni provincia prende il colore del <b>gruppo che presenta più emendamenti</b> per lei. Confrontala con “Euro”: se un gruppo vince per numero ma non per soldi, presenta tanti emendamenti piccoli.'};
    let txt=T[(forced&&md==='par'?'imp':md)+'|'+mm];
-   if(forced&&md==='par')txt='Con un gruppo o un deputato selezionato c’è un solo partito in gioco, quindi il confronto tra partiti è sospeso. '+txt;
+   if(forced&&md==='par')txt='Con un gruppo o un parlamentare selezionato c’è un solo partito in gioco, quindi il confronto tra partiti è sospeso. '+txt;
    const gsel=$('#mg').value;if(gsel&&!$('#mdep').value.trim())txt='Stai guardando <b>solo '+esc(gsel)+'</b>: ogni provincia d’Italia è colorata in base '+(mm==='n'?'a quanti emendamenti di '+esc(gsel)+' la nominano':mm==='pc'?'agli euro chiesti da '+esc(gsel)+' per lei, divisi per gli abitanti':'agli euro chiesti da '+esc(gsel)+' per lei')+'. Tratteggio = nessuna richiesta di '+esc(gsel)+'. Le soglie della scala sono le stesse per tutti i partiti, quindi puoi confrontarli passando da uno all’altro; cambia solo il colore, quello del partito. A destra trovi tutte le 110 province.';
    $('#mapexplain').innerHTML='<b>Come leggere la mappa.</b> '+txt;}
   const A=mapAgg();mapAggC=A;
@@ -778,7 +779,7 @@ function renderMap(){
   const K=A.K;
   $('#mapkpi').innerHTML=(K.dep?`<div><span>Totale chiesto (${nf(K.nAll)} emendamenti)</span><b>${fmtM(K.all)}</b></div>`:'')+
    `<div class="hl"><span>Attribuibile a una sola provincia (${nf(K.nSingle)})</span><b>${fmtM(K.single)}</b></div><div><span>Progetti su più province (${nf(K.nMulti)})</span><b>${fmtM(K.multi)}</b></div>`+
-   (K.dep?`<div><span>Fondi e misure senza riparto territoriale (${nf(K.nNone)})</span><b>${fmtM(K.none)}</b></div>`:`<div class="hint"><span>Scegli un deputato per vedere anche il totale chiesto e la parte senza riparto territoriale, come fondi nazionali e misure fiscali.</span></div>`);
+   (K.dep?`<div><span>Fondi e misure senza riparto territoriale (${nf(K.nNone)})</span><b>${fmtM(K.none)}</b></div>`:`<div class="hint"><span>Scegli un parlamentare per vedere anche il totale chiesto e la parte senza riparto territoriale, come fondi nazionali e misure fiscali.</span></div>`);
   const nprov=Object.keys(A.P).length;
   {const z=$('#mzoom').value,dep=$('#mdep').value.trim(),g=$('#mg').value,es=$('#mes').value,one=$('#mone').checked;
    const regOf={};mapGeo.features.forEach(f=>regOf[f.properties.prov_name]=f.properties.reg_name);
@@ -788,12 +789,12 @@ function renderMap(){
    const esT={AP:'approvati',A:'ammessi al voto',I:'dichiarati inammissibili',E:'dichiarati fuori tema'}[es]||'';
    $('#maptitle').textContent=(mm==='n'?(who?'Dove '+who+' presenta emendamenti':'Dove si concentrano gli emendamenti'):(who?'Dove '+who+' chiede i soldi':'Dove andrebbero i soldi chiesti'))+((mm==='n'?{AP:' (solo approvati)',A:' (solo ammessi)',I:' (solo inammissibili)',E:' (solo fuori tema)'}:{AP:' con emendamenti approvati',A:' con emendamenti ammessi',I:' con emendamenti inammissibili',E:' con emendamenti fuori tema'})[es]||'')+' · '+perLab()+(z?' · '+z:'');
    const rowsZ=new Set();inZ.forEach(o=>o.rows.forEach(r=>rowsZ.add(r)));const eurZ=inZ.reduce((a,o)=>a+o.soldi,0);const nR=rowsZ.size;
-   let share='';if(es&&nR){const B=mapAgg({es:''});const allZ=Object.values(B.P).filter(o=>!z||regOf[o.p]===z).reduce((a,o)=>a+o.soldi,0);if(allZ>0)share=` È il <b>${Math.round(eurZ/allZ*100)}%</b> dei soldi che ${who?esc(who)+' chiede':'i deputati chiedono'} per luoghi precisi${z?' in '+esc(z):''}.`}
+   let share='';if(es&&nR){const B=mapAgg({es:''});const allZ=Object.values(B.P).filter(o=>!z||regOf[o.p]===z).reduce((a,o)=>a+o.soldi,0);if(allZ>0)share=` È il <b>${Math.round(eurZ/allZ*100)}%</b> dei soldi che ${who?esc(who)+' chiede':'i parlamentari chiedono'} per luoghi precisi${z?' in '+esc(z):''}.`}
    $('#mapsum').innerHTML=nR?`<b>${nf(nR)}</b> ${nR===1?'emendamento':'emendamenti'}${who?' di '+esc(who):''}${esT?' '+esT:''} ${nR===1?'chiede':'chiedono'} soldi per luoghi precisi${z?' in '+esc(z):''}: <b>${fmtM(eurZ)}</b> (${esc(perLab())}), in <b>${nf(inZ.length)}</b> ${inZ.length===1?'provincia':'province'}.`+(top?` In testa <b>${esc(top.p)}</b> con ${fmtV(mapVal(top))}${mm==='pc'?'':' ('+(mapVal(top)/(totZ||1)*100).toLocaleString(LOC(),{maximumFractionDigits:1})+'% del totale)'}.`:'')+share:`Nessun emendamento${who?' di '+esc(who):''}${esT?' '+esT:''} chiede soldi per luoghi precisi${z?' in '+esc(z):''}.`;
    {const po=$('#mpo').value;if(po)$('#mapsum').insertAdjacentHTML('beforeend',' <span class="meta">'+(po==='1'?'Solo emendamenti che nominano una sola provincia.':'Solo emendamenti che nominano più province.')+'</span>')}}
   // legend
-  if(effPar()){const gs=ORDER.filter(g=>PCOL[g]&&Object.values(A.P).some(o=>topParty(o)===g));$('#maplegend').innerHTML='<b>Partito che chiede di più nella provincia</b>'+gs.map(g=>`<span><i class="sw" style="background:${PCOL[g]}"></i>${esc(g)}</span>`).join('')+'<span><i class="sw nd"></i>nessuna richiesta</span>'}
-  else{const th=$('#mmis').value==='n'?TH_N:TH_SOLDI;const forcedNote=($('#mmode').value==='par'&&parForced())?'<span class="forced">Con un gruppo o un deputato selezionato c’è un solo partito in gioco: la mappa mostra i soldi chiesti.</span>':'';const mm_=$('#mmis').value;const mU=U('mln'),bU=U('mld'),k1=(1000).toLocaleString(LOC());const thS=SC(mm_==='n'?TH_N:(mm_==='pc'?TH_PC:TH_SOLDI));const fv=v=>mm_==='n'?nf(v):(mm_==='pc'?nf(v)+' €':fmtM(v));const lab=[(mm_==='n'?'1–':'fino a ')+fv(thS[0])].concat(thS.slice(1).map((t,i)=>fv(thS[i])+'–'+fv(t))).concat(['oltre '+fv(thS[thS.length-1])]);$('#maplegend').innerHTML='<b>'+(mm_==='n'?'Emendamenti':(mm_==='pc'?'Euro chiesti per abitante · '+perLab():'Euro chiesti · '+perLab()))+'</b><span><i class="sw nd"></i>nessuna richiesta</span>'+'<span class="ramp">'+curRamp().map((c,i)=>`<span class="rk"><i style="background:${c}"></i><em>${lab[i]}</em></span>`).join('')+'</span>'+forcedNote}
+  if(effPar()){const gs=ORDER.filter(g=>PCOL[g]&&Object.values(A.P).some(o=>topParty(o)===g));$('#maplegend').innerHTML='<b>'+($('#mmis').value==='n'?'Partito con più emendamenti nella provincia':'Partito che chiede di più nella provincia')+'</b>'+gs.map(g=>`<span><i class="sw" style="background:${PCOL[g]}"></i>${esc(g)}</span>`).join('')+'<span><i class="sw nd"></i>nessuna richiesta</span>'}
+  else{const th=$('#mmis').value==='n'?TH_N:TH_SOLDI;const forcedNote=($('#mmode').value==='par'&&parForced())?'<span class="forced">'+($('#mmis').value==='n'?'Con un gruppo o un parlamentare selezionato c’è un solo partito in gioco: la mappa mostra quanti emendamenti presenta.':$('#mmis').value==='pc'?'Con un gruppo o un parlamentare selezionato c’è un solo partito in gioco: la mappa mostra gli euro chiesti per abitante.':'Con un gruppo o un parlamentare selezionato c’è un solo partito in gioco: la mappa mostra i soldi chiesti.')+'</span>':'';const mm_=$('#mmis').value;const mU=U('mln'),bU=U('mld'),k1=(1000).toLocaleString(LOC());const thS=SC(mm_==='n'?TH_N:(mm_==='pc'?TH_PC:TH_SOLDI));const fv=v=>mm_==='n'?nf(v):(mm_==='pc'?nf(v)+' €':fmtM(v));const lab=[(mm_==='n'?'1–':'fino a ')+fv(thS[0])].concat(thS.slice(1).map((t,i)=>fv(thS[i])+'–'+fv(t))).concat(['oltre '+fv(thS[thS.length-1])]);$('#maplegend').innerHTML='<b>'+(mm_==='n'?'Emendamenti':(mm_==='pc'?'Euro chiesti per abitante · '+perLab():'Euro chiesti · '+perLab()))+'</b><span><i class="sw nd"></i>nessuna richiesta</span>'+'<span class="ramp">'+curRamp().map((c,i)=>`<span class="rk"><i style="background:${c}"></i><em>${lab[i]}</em></span>`).join('')+'</span>'+forcedNote}
   {const svg=d3.select('#mapsvg');svg.selectAll('text.top').remove();
    if(!$('#mzoom').value&&mapPath){const top=Object.values(A.P).sort((a,b)=>mapVal(b)-mapVal(a)).slice(0,5).map(o=>o.p);
      const placed=[];const feats=top.map(n=>mapGeo.features.find(f=>f.properties.prov_name===n)).filter(Boolean).filter(f=>{const c=mapPath.centroid(f);if(placed.some(q=>Math.hypot(q[0]-c[0],q[1]-c[1])<22))return false;placed.push(c);return true});
@@ -826,10 +827,10 @@ function stackHTML(o){const k=$('#mmis').value==='n'?o.nG:o.byG;const t=Object.v
 function renderMapSide(){
   const A=mapAggC;const side=$('#mapside');
   if(mapSel&&A.P[mapSel]){const o=A.P[mapSel];const k=$('#mmis').value==='n'?o.nG:o.byG;
-    const rows=o.rows.slice().sort((a,b)=>(b.o==='A')-(a.o==='A')||(b.e3||b.e||0)-(a.e3||a.e||0));
+    const rows=o.rows.slice().sort((a,b)=>(b.o==='A')-(a.o==='A')||AMT(b)-AMT(a));
     side.innerHTML=`<h3>${esc(mapSel)}</h3><div class="mapsum"><b>${fmtE(o.soldi)}</b> chiesti · <b>${nf(o.n)}</b> emendamenti</div>${stackHTML(o)}
      <div class="maplegend">${Object.keys(k).sort((a,b)=>k[b]-k[a]).map(g=>`<span><i class="sw" style="background:${PCOL[g]}"></i>${esc(g)} ${fmtVo(k[g],o)}</span>`).join('')}</div>
-     <div class="amlist">${rows.slice(0,8).map(r=>`<div class="it"><b>${esc((r.id_||'')+r.i)}</b> ${esc(r.t.slice(0,110))}<div class="meta">${esc(r.p)} (${esc(r.g)}) · ${r.y} · ${esc(r.ra)} · ${fmtE(r.e3||r.e)}${r.big?' (esclusa dalle somme)':''} · ${r.s!=='Ammissibile'?'inammissibile':r.o==='A'?'<b>approvato</b>':'non approvato'}</div></div>`).join('')}</div>
+     <div class="amlist">${rows.slice(0,8).map(r=>`<div class="it"><b>${esc((r.id_||'')+r.i)}</b> ${esc(r.t.slice(0,110))}<div class="meta">${esc(r.p)} (${esc(r.g)}) · ${r.y} · ${esc(r.ra)} · ${fmtE(AMT(r))}${r.big?' (esclusa dalle somme)':''} · ${r.s!=='Ammissibile'?'inammissibile':r.o==='A'?'<b>approvato</b>':'non approvato'}</div></div>`).join('')}</div>
      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" type="button" id="mapgo">Apri nell'elenco</button><button class="btn" type="button" id="mapback">Torna alla classifica province</button></div>`;
     $('#mapgo').onclick=()=>{const g=$('#mg').value,es=$('#mes').value;const o2={floc:true,fp:Object.keys(PALIAS).find(k=>PALIAS[k]===mapSel)||mapSel};if(g)o2.fg=g;const dep_=$('#mdep').value.trim();if(dep_)o2.fw=dep_;if(es==='AP')o2.fo='A';if(es==='A')o2.fs='Ammissibile';if(es==='I')o2.fs='INAMM';if(es==='E')o2.fs='Estraneità di materia';setOnly(o2)};
     $('#mapback').onclick=()=>{mapSel=null;renderMap()};return}
@@ -845,13 +846,13 @@ function renderMapSide(){
 }
 ['mmode','mmis','mg','mes','mpo','mzoom','mone'].forEach(id=>$('#'+id).addEventListener('change',()=>{if(id==='mzoom')mapSel=null;renderMap()}));
 $('#mdep').addEventListener('input',()=>{mapSel=null;renderMap()});
-function syncSeg(){document.querySelectorAll('.seg button[data-set]').forEach(b=>{const [id,v]=b.dataset.set.split(':');b.setAttribute('aria-pressed',String($('#'+id).value===v))});const pb=document.querySelector('.seg button[data-set="mmode:par"]');if(pb){pb.classList.toggle('dim',parForced());pb.title=parForced()?'Togli il filtro per gruppo o deputato per confrontare i partiti':'Ogni provincia prende il colore del gruppo che chiede più soldi lì'}}
+function syncSeg(){document.querySelectorAll('.seg button[data-set]').forEach(b=>{const [id,v]=b.dataset.set.split(':');b.setAttribute('aria-pressed',String($('#'+id).value===v))});const pb=document.querySelector('.seg button[data-set="mmode:par"]');if(pb){pb.classList.toggle('dim',parForced());pb.title=parForced()?'Togli il filtro per gruppo o parlamentare per confrontare i partiti':'Ogni provincia prende il colore del gruppo che chiede più soldi lì'}}
 document.querySelectorAll('.seg button[data-set]').forEach(b=>b.onclick=()=>{const [id,v]=b.dataset.set.split(':');$('#'+id).value=v;syncSeg();renderMap()});
 $('#mreset').onclick=()=>{['mg','mes','mpo','mzoom'].forEach(id=>$('#'+id).value='');$('#mdep').value='';$('#mone').checked=false;$('#mmode').value='imp';$('#mmis').value='soldi';mapSel=null;syncSeg();renderMap()};
 let rankAll=false;
 function renderRank(){
   if(!D)return;const by={};const gsel=$('#rg2').value,rra=$('#rra').value,rq=fold($('#rq').value.trim());
-  D.forEach(r=>{if(r.g==='Governo'||(gsel&&r.g!==gsel)||(rra&&r.ra!==rra))return;if(rq&&!fold(r.p).includes(rq))return;const k=r.p+'|'+r.ra;const o=by[k]||(by[k]={p:r.p,ra:r.ra,g:r.g,gs:new Set(),n:0,i:0,e:0,loc:0,soldi:0,ap:0});o.n++;o.gs.add(r.g);o.g=r.g;if(r.s!=='Ammissibile')o.i++;if(r.s==='Estraneità di materia')o.e++;if(r.o==='A')o.ap++;if(r.loc){o.loc++;o.soldi+=AMT(r)}});
+  D.forEach(r=>{if(r.g==='Governo e relatori'||(gsel&&r.g!==gsel)||(rra&&r.ra!==rra))return;if(rq&&!fold(r.p).includes(rq))return;const k=r.p+'|'+r.ra;const o=by[k]||(by[k]={p:r.p,ra:r.ra,g:r.g,gs:new Set(),n:0,i:0,e:0,loc:0,soldi:0,ap:0});o.n++;o.gs.add(r.g);o.g=r.g;if(r.s!=='Ammissibile')o.i++;if(r.s==='Estraneità di materia')o.e++;if(r.o==='A')o.ap++;if(r.loc){o.loc++;o.soldi+=AMT(r)}});
   const min=Math.max(1,parseInt($('#rmin').value)||1),k=$('#rk').value;
   let L=Object.values(by).filter(o=>o.n>=min);
   const key=o=>k==='pi'?o.i/o.n:k==='pe'?o.e/o.n:k==='pa'?o.ap/o.n:(o[k]||0);
@@ -887,11 +888,11 @@ const EM_HEAD=['Manovra','Ramo','Lettura','Emendamento','Articolo del ddl','Ogge
 const emRow=r=>[r.y,r.ra,r.le===2?'seconda':'prima',r.i,r.a,r.t,r.p,r.g,r.c,r.f.length,r.f.map(x=>x[0]+' ('+x[1]+')').join(', '),r.cf||r.ce||'',ESITO(r),OLAB[r.o],r.m||'',r.po,r.l.join(', '),r.pr.join(', '),r.rg.join(', '),r.th.join(', '),r.e||null,r.e?(r.ey||'non individuato nel testo'):'',r.e3||null,r.big?'sì':'no',r.cv,LINK(r)];
 $('#csvf').onclick=()=>{const n=filtered.length;if(!n){$('#csvf').textContent='Nessun emendamento da scaricare';setTimeout(()=>$('#csvf').textContent='Scarica CSV (filtrati)',3000);return}saveCSV($('#csvf'),'emendamenti-manovre-'+PA+'-'+PB+'-filtrati-'+n+'.csv',csvBuild(EM_HEAD,filtered.map(emRow)))};
 $('#csva').onclick=()=>{const all=D.slice().sort((a,b)=>a._k<b._k?-1:1);saveCSV($('#csva'),'emendamenti-manovre-'+PA+'-'+PB+'-tutti.csv',csvBuild(EM_HEAD,all.map(emRow)))};
-$('#csvr').onclick=()=>{const by={};D.forEach(r=>{if(r.g==='Governo')return;const k=r.p+'|'+r.g;const o=by[k]||(by[k]={p:r.p,g:r.g,c:r.c,n:0,i:0,cm:0,e:0,loc:0,eur:0});o.n++;if(r.s!=='Ammissibile')o.i++;if(r.s==='Compensazione')o.cm++;if(r.s==='Estraneità di materia')o.e++;if(r.loc){o.loc++;o.eur+=AMT(r)}});
+$('#csvr').onclick=()=>{const by={};D.forEach(r=>{if(r.g==='Governo e relatori')return;const k=r.p+'|'+r.g;const o=by[k]||(by[k]={p:r.p,g:r.g,c:r.c,n:0,i:0,cm:0,e:0,loc:0,eur:0});o.n++;if(r.s!=='Ammissibile')o.i++;if(r.s==='Compensazione')o.cm++;if(r.s==='Estraneità di materia')o.e++;if(r.loc){o.loc++;o.eur+=AMT(r)}});
   const L=Object.values(by).sort((a,b)=>b.i/b.n-a.i/a.n||b.n-a.n);
   saveCSV($('#csvr'),'parlamentari-manovre-'+PA+'-'+PB+'.csv',csvBuild(['Parlamentare (primo firmatario)','Gruppo','Schieramento','Emendamenti','Inammissibili','% inammissibili','Inammissibili per compensazione','Inammissibili per estraneità di materia','% estraneità di materia','Emendamenti per un solo territorio','Euro chiesti per singoli territori nel periodo'],L.map(o=>[o.p,o.g,o.c,o.n,o.i,Math.round(o.i/o.n*1000)/10,o.cm,o.e,Math.round(o.e/o.n*1000)/10,o.loc,Math.round(o.eur)])))};
 function mapFiltTag(){const t=[];const z=$('#mzoom').value,g=$('#mg').value,d=$('#mdep').value.trim(),es=$('#mes').value;if(z)t.push(z);if(g)t.push(g);if(d)t.push(d);if($('#mone').checked)t.push('firma-unica');if(es)t.push({A:'ammissibili',I:'inammissibili',E:'estraneita'}[es]);if($('#mpo').value)t.push($('#mpo').value==='1'?'una-provincia':'piu-province');return t.length?'-'+slug(t.join('-')):''}
-function mapExportRows(level){const A=mapAgg();const z=$('#mzoom').value;const groups=ORDER.filter(g=>g!=='Governo');
+function mapExportRows(level){const A=mapAgg();const z=$('#mzoom').value;const groups=ORDER.filter(g=>g!=='Governo e relatori');
   const feats=mapGeo.features.filter(f=>!z||f.properties.reg_name===z);
   const units={};feats.forEach(f=>{const pp=f.properties;const key=level==='p'?pp.prov_name:pp.reg_name;const u=units[key]||(units[key]={reg:pp.reg_name,prov:pp.prov_name,acr:pp.prov_acr,pop:0,popOk:true,soldi:0,byG:{},rows:new Set()});
     const pv=POP&&POP[pp.prov_name];if(pv)u.pop+=pv;else u.popOk=false;const o=A.P[pp.prov_name];if(o){u.soldi+=o.soldi;for(const g in o.byG)u.byG[g]=(u.byG[g]||0)+o.byG[g];o.rows.forEach(r=>u.rows.add(r))}});
@@ -920,7 +921,7 @@ function mapState(){const A=mapAgg();const z=$('#mzoom').value,g=$('#mg').value,
 const SRC_TXT='Fonte: Camera dei deputati, fascicolo degli emendamenti al ddl di bilancio 2027 (C. 3174-bis), V Commissione, 23 novembre 2026; popolazione residente ISTAT al 1° gennaio 2025. Somme lorde chieste per il 2027–29, inclusi gli emendamenti inammissibili; un emendamento che nomina più province è diviso in parti uguali; esclusi fondi nazionali e luoghi citati solo nella copertura.';
 function Lf(k,...a){let t=k;if(LANG!=='it'&&I18&&I18[LANG]){const d=I18[LANG];t=d[k]!=null?d[k]:(k.includes('{')?k:(Lc(k)??k))}return a.length?t.replace(/\{(\d+)\}/g,(_,i)=>a[+i]):t}
 function imgExplain(){const mm=$('#mmis').value,who=mapWho(),g=$('#mg').value,dep=$('#mdep').value.trim();
-  if(effPar())return Lf('Colore = gruppo che chiede più soldi in ogni provincia (non dice quanto).')+' '+Lf('Tratteggio = nessuna richiesta.');
+  if(effPar())return Lf(mm==='n'?'Colore = gruppo che presenta più emendamenti in ogni provincia (non dice quanti).':'Colore = gruppo che chiede più soldi in ogni provincia (non dice quanto).')+' '+Lf('Tratteggio = nessuna richiesta.');
   const base=mm==='n'?'più emendamenti':mm==='pc'?'più euro chiesti per abitante':'più euro chiesti';const whoT=who.replace(', firma unica',Lf(', firma unica'));
   return (who?Lf('Più scuro = '+base+' da {0}.',whoT):Lf('Più scuro = '+base+'.'))+' '+Lf('Tratteggio = nessuna richiesta.')+(mm==='soldi'?' '+Lf('Le province grandi tendono a risultare più scure.'):'')+(g&&!dep?' '+Lf('Stessa scala di colori per tutti i partiti.'):'')}
 function srcText(es){return 'Fonti: Camera dei deputati e Senato della Repubblica, fascicoli ed elenchi delle proposte emendative alle leggi di bilancio 2023–2027 (commissioni Bilancio); ISTAT, popolazione al 1° gennaio 2025. Cifre chieste dai proponenti per il triennio di ciascuna manovra'+(es?'':', inammissibili comprese')+'; '+perLab()+'. Solo proposte che citano un luogo preciso; se ne citano più d’uno, i soldi sono divisi in parti uguali. Esclusi i fondi nazionali; grandi opere comprese.'}
@@ -1029,7 +1030,7 @@ function renderVoti(){if(!D)return;if(!VOTI){if(vLoading)return;vLoading=true;$(
   $('#vsteps').innerHTML=vSteps(g,S);
   // contese vs sicure
   const K=VOTI.K,P=VOTI.prov,ix=k=>K.indexOf(k);const amm=$('#vamm').checked;const E={},N={};
-  D.forEach(r=>{if(r.g==='Governo'||!r.pm.length)return;if(amm&&r.s!=='Ammissibile')return;const amt=AMT(r);r.pm.forEach(p0=>{const p=PALIAS[p0]||p0;E[p]=(E[p]||0)+amt/r.pm.length;N[p]=(N[p]||0)+1})});
+  D.forEach(r=>{if(r.g==='Governo e relatori'||!r.pm.length)return;if(amm&&r.s!=='Ammissibile')return;const amt=AMT(r);r.pm.forEach(p0=>{const p=PALIAS[p0]||p0;E[p]=(E[p]||0)+amt/r.pm.length;N[p]=(N[p]||0)+1})});
   const pr=Object.keys(P).filter(p=>VPOP[p]).map(p=>{const v=P[p];const cdx=v[ix('FdI')]+v[ix('Lega')]+v[ix('FI')]+v[ix('NM')],csx=v[ix('PD')]+v[ix('AVS')]+v[ix('PiuE')],m5=v[ix('M5S')];const t=[cdx,csx,m5].sort((a,b)=>b-a);return {p,m:(t[0]-t[1])/v[0]*100,eur:E[p]||0,n:N[p]||0,pop:VPOP[p]}}).sort((a,b)=>a.m-b.m);
   const t3=Math.floor(pr.length/3);const grp=[['Contese',pr.slice(0,t3)],['Intermedie',pr.slice(t3,pr.length-t3)],['Sicure',pr.slice(pr.length-t3)]].map(([n,a])=>({n,pc:a.reduce((x,r)=>x+r.eur,0)/a.reduce((x,r)=>x+r.pop,0),pct:a.filter(r=>r.n).length/a.length*100,mMin:a[0].m,mMax:a[a.length-1].m}));
   const mx=Math.max(...grp.map(x=>x.pc))||1;
@@ -1046,7 +1047,7 @@ const pnorm=z=>{const t=1/(1+0.2316419*Math.abs(z)),dd=0.3989423*Math.exp(-z*z/2
 const stars=(b,se)=>{const p=pnorm(b/se);return p<.01?'***':p<.05?'**':p<.1?'*':''};
 var I18=null,I18load=null,TOKRE=null;
 const REGIONI=['Abruzzo','Basilicata','Calabria','Campania','Emilia-Romagna','Friuli-Venezia Giulia','Lazio','Liguria','Lombardia','Marche','Molise','Piemonte','Puglia','Sardegna','Sicilia','Toscana','Trentino-Alto Adige/Südtirol','Umbria',"Valle d'Aosta/Vallée d'Aoste",'Veneto'];
-function tokRe(){if(TOKRE)return TOKRE;const set=new Set(['Azione / IV','Autonomie','Azione + IV','Noi Moderati','FdI','Lega','FI','PD','M5S','AVS','Azione','IV','Misto','Governo',...REGIONI]);
+function tokRe(){if(TOKRE)return TOKRE;const set=new Set(['Azione / IV','Autonomie','Azione + IV','Noi Moderati','FdI','Lega','FI','PD','M5S','AVS','Azione','IV','Misto','Governo e relatori',...REGIONI]);
   try{D&&D.forEach(r=>set.add(r.p))}catch(e){}try{POP&&Object.keys(POP).forEach(k=>set.add(k))}catch(e){}try{VOTI&&Object.keys(VOTI.prov).forEach(k=>set.add(k))}catch(e){}
   const esc_=x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');const names=[...set].filter(x=>x&&x.length>1).sort((a,b)=>b.length-a.length).map(esc_).join('|');
   const unit="(?:\\s?(?:mila €|mila|mld|mln|mil millones €|mil M€|M€|mil €|mil|Md€|k€|k €|bn|m|k|€ per abitante|€ per person|€ por habitante|€ par habitant|€\\/ab\\.|€|%))?";
@@ -1114,13 +1115,33 @@ function renderQuadro(){
   $('#qtab').innerHTML='<thead><tr><th>Manovra</th><th>Ramo</th><th>Lettura</th><th style="text-align:right">Proposte</th><th style="text-align:right">Inammissibili</th><th style="text-align:right">Ritirate</th><th style="text-align:right">Approvate</th></tr></thead><tbody>'+
     cnt.map(c=>`<tr><td>${c.y}</td><td>${c.ra}</td><td>${LETT[c.y+'|'+c.ra]===1?'prima':'seconda'}</td><td class="n">${nf(c.n)}</td><td class="n">${nf(c.I)} <span class="meta">${pc(c.I,c.n)}</span></td><td class="n">${nf(c.R)}</td><td class="n"><b>${nf(c.A)}</b> <span class="meta">${pc(c.A,c.n)}</span></td></tr>`).join('')+'</tbody>';
   // schieramenti
-  const CO=['Maggioranza','Opposizione','Governo','Misto'];const hb=(sel,data,fmt)=>{const s=$(sel);s.innerHTML='';const lw2=130,rh2=40,W2=520;const m=Math.max(1e-9,...data.map(d=>d[1]||0));
+  const CO=['Maggioranza','Opposizione','Governo e relatori','Misto'];const hb=(sel,data,fmt)=>{const s=$(sel);s.innerHTML='';const lw2=130,rh2=40,W2=520;const m=Math.max(1e-9,...data.map(d=>d[1]||0));
     data.forEach(([k,v],i)=>{const y=8+i*rh2;svgEl(s,'text',{x:0,y:y+20,class:'lab'},k);const r=svgEl(s,'rect',{x:lw2,y:y+6,width:Math.max(1,(v||0)/m*(W2-lw2-90)),height:rh2-16,rx:3});r.style.fill=k==='Maggioranza'?'#257de0':k==='Opposizione'?'#ec4647':'var(--muted)';svgEl(s,'text',{x:lw2+(v||0)/m*(W2-lw2-90)+6,y:y+20},isNaN(v)?'—':fmt(v))})};
   const apr=D.filter(r=>r.o==='A');hb('#qcoal',CO.map(c=>[c,apr.filter(r=>r.c===c).length]),v=>nf(v));
   hb('#qrate',['Maggioranza','Opposizione'].map(c=>[c,rate(x=>x===c)]),v=>pf(v)+'%');
   // partiti
-  renderQParty();
+  renderQParty();renderMoney();
 }
+const COAL=[['Centrodestra',['FdI','Lega','FI','Noi Moderati']],['Campo largo',['PD','M5S','AVS','IV']],['Azione',['Azione']],['Altri gruppi',['Autonomie','Misto']],['Governo e relatori',['Governo e relatori']]];
+function renderMoney(){if(!D||!$('#qmtab'))return;
+  if(!renderMoney._b){renderMoney._b=1;['qme','qmd'].forEach(id=>$('#'+id).onchange=renderMoney)}
+  const es=$('#qme').value,dd=$('#qmd').value==='1';
+  let X=D.filter(r=>es===''||(es==='A'&&r.o==='A')||(es==='M'&&r.s==='Ammissibile')||(es==='I'&&r.s!=='Ammissibile'));
+  const nAll=X.length;let dup=0;
+  if(dd){const seen=new Set();X=X.slice().sort((a,b)=>a._k<b._k?-1:1).filter(r=>{if(!r.h)return true;const k=r.y+'|'+r.ra+'|'+r.h;if(seen.has(k)){dup++;return false}seen.add(k);return true})}
+  const st=a=>{const w=a.filter(r=>AMT(r)>0);return {n:a.length,nw:w.length,eur:a.reduce((s,r)=>s+AMT(r),0),loc:a.filter(r=>r.pm.length).reduce((s,r)=>s+AMT(r),0),ap:a.filter(r=>r.o==='A').reduce((s,r)=>s+AMT(r),0)}};
+  const tot=st(X);const mx=Math.max(1,...COAL.flatMap(([c,ps])=>ps.map(p=>st(X.filter(r=>r.pa===p)).eur)));
+  const bar=(v,c)=>`<span class="qmbar"><i style="width:${(v/mx*100).toFixed(1)}%;background:${c}"></i></span>`;
+  const row=(lab,S,cls,col)=>`<tr class="${cls}"><td>${col?`<i class="qdot" style="background:${col}"></i>`:''}${esc(lab)}</td><td class="n">${nf(S.n)}</td><td class="n">${nf(S.nw)}</td><td class="n"><b>${fmtE(S.eur)}</b>${cls==='pa'?bar(S.eur,col||'var(--muted)'):''}</td><td class="n">${tot.eur?pf(S.eur/tot.eur*100)+'%':'—'}</td><td class="n">${fmtE(S.loc)}</td><td class="n">${fmtE(S.ap)}</td></tr>`;
+  let h='<thead><tr><th>Partito o coalizione</th><th style="text-align:right">Proposte</th><th style="text-align:right">Con una cifra</th><th style="text-align:right">Euro chiesti nel triennio</th><th style="text-align:right">Quota del totale</th><th style="text-align:right">Di cui per luoghi precisi</th><th style="text-align:right">Di cui approvati</th></tr></thead><tbody>';
+  let sumP=0,sumN=0;
+  COAL.forEach(([c,ps])=>{const Y=X.filter(r=>ps.includes(r.pa));if(!Y.length)return;h+=row(c+(ps.length>1?' ('+ps.join(', ')+')':''),st(Y),'co');if(ps.length>1)ps.forEach(p=>{const Z=X.filter(r=>r.pa===p);if(!Z.length)return;const S=st(Z);sumP+=S.eur;sumN+=S.n;h+=row(p,S,'pa',(p==='IV'?'#16a394':p==='Azione'?PCOL['Azione / IV']:PCOL[p])||'var(--muted)')});else{const S=st(Y);sumP+=S.eur;sumN+=S.n}});
+  h+=row('Totale',tot,'tot');h+='</tbody>';$('#qmtab').innerHTML=h;
+  const ok=Math.abs(sumP-tot.eur)<1&&sumN===tot.n;
+  $('#qmchk').textContent=Lf('Controllo: la somma dei partiti fa {0} su {1} proposte, uguale al totale.',fmtE(sumP),nf(sumN))+(ok?'':' ⚠')+(dd?' '+Lf('Le proposte con lo stesso testo nella stessa manovra e nello stesso ramo sono contate una volta: {0} doppioni tolti su {1}.',nf(dup),nf(nAll)):'');
+  const top=X.filter(r=>AMT(r)>0).sort((a,b)=>AMT(b)-AMT(a)).slice(0,10);
+  $('#qmtop').innerHTML=top.map(r=>`<li><b>${fmtE(AMT(r))}</b> · ${esc(r.t)} <span class="meta">— ${esc(r.p)} (${esc(r.pa)}), ${r.y} · ${esc(r.ra)} ${esc(r.i)} · ${r.s==='Ammissibile'?esc(OLAB[r.o]):'inammissibile'}</span> <button class="btn sm" type="button" data-qmk="${esc(r.y+'|'+r.ra+'|'+r.i)}">${L('Apri')}</button></li>`).join('');
+  document.querySelectorAll('[data-qmk]').forEach(b=>b.onclick=()=>{const [y,ra,i]=b.dataset.qmk.split('|');const r=D.find(x=>x.y==y&&x.ra===ra&&x.i===i);setOnly({q:i+' '+r.p.split(' ')[0].toLowerCase(),fy:y});})}
 let QPS='n',QPD=-1;
 function renderQParty(){if(!D)return;
   if(!renderQParty._b){renderQParty._b=1;$('#qps').onchange=()=>{QPS=$('#qps').value;QPD=QPS==='g'?1:-1;renderQParty()};$('#qpy').onchange=()=>renderQParty()}
