@@ -46,7 +46,8 @@
   ol.proj { list-style:none; padding:0; margin:0; counter-reset:p; }
   ol.proj li { counter-increment:p; display:grid; grid-template-columns:2.2em 1fr; margin-bottom:16px; }
   ol.proj li::before { content:counter(p, decimal-leading-zero); color:var(--muted); font-size:.9em; padding-top:.15em; font-variant-numeric:tabular-nums; }
-  ol.proj .t { font-weight:bold; }
+  ol.proj .t, .proj1 .t { font-weight:bold; }
+  .proj1 p { margin:2px 0 0; }
   ol.proj p { margin:2px 0 0; }
   footer { margin-top:56px; color:var(--muted); font-size:.85rem; }
   @media (max-width:520px) { .when { float:none; display:block; margin:0; } td:first-child { white-space:normal; } }
@@ -58,7 +59,6 @@
   <p class="tagline">Graduate Student in Economics · Sant'Anna School of Advanced Studies &amp; University of Pisa</p>
   <p class="links">
     <a href="#projects">Projects</a>
-    <a href="#research">Research</a>
     <a href="mailto:tomsciu@gmail.com">Email</a>
     <a href="files/Landi_Tommaso.pdf?v=2026-11-17b">CV</a>
     <a href="https://www.linkedin.com/in/tommaso-l-979597243">LinkedIn</a>
@@ -105,24 +105,10 @@
   </table>
 
   <h2 id="projects">Projects</h2>
-  <ol class="proj">
-    <li><div><a class="t" href="projects/manovra-2027/">Amendments to Italy's 2027 budget law ↗</a>
-      <p class="sub">All 6,558 amendments tabled in the Chamber's Budget Committee, searchable and filterable, with maps of where the money requested would go by party and MP, rulings on admissibility and funding sources. In Italian, English, Spanish and French.</p></div></li>
-    <li><div><a class="t" href="projects/manovre-2023-2027/">Italian budget laws 2023–2027, amendment by amendment ↗</a>
-      <p class="sub">Every proposal to the five budget laws of the current legislature, in both chambers (24,977): outcomes, MP rankings, a map of local spending requests, and a comparison with the 2022 vote. In four languages.</p></div></li>
-  </ol>
-
-  <h2 id="research">Research</h2>
-  <ul>
-    <li class="paper">
-      <strong>Where the Votes Are: Electoral Strength and Local Spending Requests in Italian Budget Laws, 2023–2027</strong><br>
-      <span class="sub">Work in progress</span>
-      <p class="sub">I assemble every amendment tabled in the budget committees of both chambers of the Italian Parliament to the five budget laws of the current legislature and match local spending requests to party vote shares in the 2022 general election. Parties ask for local money where they received more votes, also when parties are compared within the same province, and the pattern runs largely through the legislators elected there. It is driven by opposition parties. What gets approved depends on whether the signatory sits in the majority.</p>
-      <p class="paperlinks">
-        <a href="projects/manovre-2023-2027/">Interactive explorer, 2023–2027</a>
-      </p>
-    </li>
-  </ul>
+  <div class="proj1">
+    <a class="t" href="projects/manovre-2023-2027/">Italian budget laws 2023–2027, amendment by amendment ↗</a>
+    <p class="sub">Every proposal to the five budget laws of the current legislature, in both chambers (24,977): outcomes, MP rankings, a map of local spending requests, and a comparison with the 2022 vote. In four languages.</p>
+  </div>
 
   <footer>© 2026 Tommaso Landi</footer>
 </main>
